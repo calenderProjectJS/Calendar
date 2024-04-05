@@ -13,31 +13,141 @@ a {
 
 button {
 	background-color: white;
+	border-radius: 5px;
 }
+
+/* =========================== header */
 
 header {
-	height:10vh;
-	background: gray;
+	height: 64px;
+	/* background: gray; */
 	display: flex;
+	padding: 8px;
+	border-bottom: 1px solid #aaa;
 }
 
-header .wrapper {
+header .container {
+	width: 100%;
+	height: 100%;
 	display: flex;
 	align-items: center;
 }
 
-header .wrapper .logo {
-	width: 100px;
+header .container h1.logo {
+	width: 238px;
 	background-color: white;
+	font-size: 20px;
+	padding-right: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+header .container h1.logo i {
+	margin-right: 5px;
+}
+
+header .container .wrapper {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+header .container .wrapper .date-wrapper {
+	display: flex;
+	width: 238px;
+}
+
+header .container .wrapper .date-wrapper .today {
+	margin-right: 15px;
+
+}
+
+header .container .wrapper .date-wrapper .selected-date {
+	display: flex;
+	align-items: center;
+}
+
+header .container .wrapper .add-btn-wrapper {
+
+}
+
+header .container .wrapper .setting-wrapper {
+	width: 200px;
+}
+
+/* =================================== main */
+
+#main {
+	height: calc(100vh - 64px);
+	display: flex;
+	overscroll-behavior: none;
+}
+
+/* =================================== main side */
+
+#main section#side {
+	width: 256px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* overflow: hidden; */
+	/* overflow-y: scroll; */
+	/* overscroll-behavior: none; */
+}
+
+#main section#side .menu {
+	width: 100%;
+	height: 300px;
+	background: white;
+	margin-bottom: 20px;
+	padding-top: 30px;
+}
+
+#main section#side .menu ul {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#main section#side .menu ul li {
+	margin-bottom: 5px;
+	cursor: pointer;
 }
 
 
-section#side {
-	height: 80vh;
-	width: 280px;
+#main section#side .timer {
+	width: 100%;
+	/* height: 300px; */
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 }
+
+#main section#side .timer .current-time {
+	font-size: 25px;
+}
+
+#main section#side .timer .current-time {
+
+}
+
+/* =================================== main-content */
+
+#main section#main-content {
+	width: 100%;
+	overflow: hidden;
+	overflow-y: scroll;
+	overscroll-behavior: none;
+}
+
+#main section#main-content div {
+	width: 100%;
+}
+
 
 footer {
-	height: 10vh;
-	background-color: aqua;
+	/* height: 80px; */
+	/* background-color: aqua; */
 }
