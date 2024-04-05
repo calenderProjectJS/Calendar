@@ -1,15 +1,5 @@
 @import url("./common.css");
 
-body {
-  display: flex;
-  justify-content: center; /* 수평 중앙 정렬 */
-  /* align-items: center; 수직 중앙 정렬 */
-  /* height: 100vh; 화면 전체 높이에 맞춤 */
-  margin: 0; /* body의 기본 마진 제거 */
-  font-size: 22px;
-  font-weight: bolder;
-}
-
 section.main_section {
   margin-top: 60px;
 }
