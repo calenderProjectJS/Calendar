@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/calendar.css">
+  <!-- <script src="/calendar.js" defer></script> -->
+</head>
+<body>
+  <section class="calendar">
+    <div class="header-calendar">
+      <!-- year-month 변수 처리 필요 -->
+      <div class="year-month">2024년 4월</div>
+      <div class="nav-calendar">
+        <button class="nav-btn go-prev">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn go-today">오늘</button>
+        <button class="nav-btn go-next">
+          <i class="fas fa-chevron-right"></i>       
+        </button>
+      </div>
+    </div>
+    <div class="main-calendar">
+      <div class="days-container">
+        <div class="days">일</div>
+        <div class="days">월</div>
+        <div class="days">화</div>
+        <div class="days">수</div>
+        <div class="days">목</div>
+        <div class="days">금</div>
+        <div class="days">토</div>
+      </div>
+      <!-- date -->
+      <div class="date-container">
+        <div class="date-box"><span class="date-text">1</span></div>
+        <div class="date-box"><span class="date-text">2</span></div>
+        <div class="date-box"><span class="date-text">3</span></div>
+        <div class="date-box"><span class="date-text">4</span></div>
+        <div class="date-box"><span class="date-text today">5</span></div>
+        <div class="date-box"><span class="date-text">6</span></div>
+        <div class="date-box"><span class="date-text">7</span></div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
