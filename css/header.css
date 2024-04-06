@@ -142,11 +142,6 @@ header .container .wrapper .setting-wrapper {
 	overscroll-behavior: none;
 }
 
-#main section#main-content div {
-	width: 100%;
-}
-
-
 footer {
 	/* height: 80px; */
 	/* background-color: aqua; */
