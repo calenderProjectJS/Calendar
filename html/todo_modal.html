@@ -125,20 +125,28 @@
 		/* dropdown calendar event */
 		const $selectTime = document.querySelector(".select-time");
 		const $contentCalendar = document.querySelector(".content-calendar");
-		$selectTime.addEventListener("click", () => {
+		$selectTime.addEventListener("click", (e) => {
+			e.stopPropagation();
+			e.preventDefault();
 			$contentCalendar.style.display = "block";
 		});
-		$selectTime.addEventListener("mouseleave", () => {
+		$selectTime.addEventListener("mouseleave", (e) => {
+			e.stopPropagation();
+			e.preventDefault();
 			$contentCalendar.style.display = "none";
 		});
 
 		/* dropdown repeat event */
 		const $selectRepeat = document.querySelector(".select-repeat");
 		const $contentRepeat = document.querySelector(".content-repeat");
-		$selectRepeat.addEventListener("click", () => {
+		$selectRepeat.addEventListener("click", (e) => {
+			e.stopPropagation();
+			e.preventDefault();
 			$contentRepeat.style.display = "block";
 		});
-		$selectRepeat.addEventListener("mouseleave", () => {
+		$selectRepeat.addEventListener("mouseleave", (e) => {
+			e.stopPropagation();
+			e.preventDefault();
 			$contentRepeat.style.display = "none";
 		});
 	</script>
