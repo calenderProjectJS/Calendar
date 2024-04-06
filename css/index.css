@@ -70,7 +70,31 @@ section#main-content .container-1 .box {
   box-shadow: 2px 3px 5px #888;
   margin-right: 10px;
   background-color: #fbfbfb;
+  padding: 30px;
 }
+
+section#main-content .container-1 .box .title {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 2px solid #ccc;
+	padding-bottom: 10px;
+	margin-bottom: 15px;
+}
+
+section#main-content .container-1 .box .list li {
+	margin-bottom: 10px;
+	position: relative;
+}
+
+section#main-content .container-1 .box .list .checked {
+	text-decoration: line-through;
+	color: #ADB5BD;
+}
+
+section#main-content .container-1 .box .list .checked input {
+	transform: scale(1.1);
+}
+
 
 section#main-content .container-2 {
 }
