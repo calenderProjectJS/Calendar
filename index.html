@@ -1,11 +1,112 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Calendar</title>
+	<link rel="stylesheet" href="../css/header.css">
+	<link rel="stylesheet" href="./css/index.css">
 </head>
+
 <body>
-    
+	<header>
+		<div class="container">
+			<h1 class="logo">
+				<i class="fa-regular fa-calendar-days"></i>
+				캘린더
+			</h1>
+			<div class="wrapper">
+				<div class="date-wrapper">
+					<button class="today">오늘</button>
+					<span class="selected-date">2024년 4월 5일</span>
+				</div>
+				<div class="add-btn-wrapper">
+					<button class="add">
+						<i class="fa-solid fa-plus"></i>
+						<span>만들기</span>
+					</button>
+				</div>
+				<div class="setting-wrapper"></div>
+			</div>
+		</div>
+	</header>
+	<section id="main">
+		<section id="side">
+			<nav class="menu">
+				<ul>
+					<li><a href="./index.html">홈</a></li>
+					<li>주간</li>
+					<li><a href="./html/calendar.html">월간</a></li>
+					<li><a href="./html/todo.html">일정</a></li>
+				</ul>
+			</nav>
+			<div class="timer">
+				<span class="current-time">00:00</span>
+				<div class="btn-wrapper">
+					<button class="start">시작</button>
+					<button class="stop">정지</button>
+				</div>
+			</div>
+		</section>
+		<section id="main-content">
+			<div class="container-1">
+				<div class="wrapper">
+					<div class="header">
+						<span>To do List</span>
+					</div>
+					<div class="todo-list">
+						<div class="box"></div>
+						<div class="box"></div>
+					</div>
+				</div>
+				<div class="wrapper">
+					<div class="header">
+						<span>Monthly</span>
+					</div>
+					<div class="calendar">
+						<div class="box"></div>
+					</div>
+				</div>
+			</div>
+			<div class="container-2">
+				<div class="wrapper">
+					<div class="header">
+						<span>Weekly</span>
+					</div>
+					<div class="weekly">
+						<div class="main-calendar">
+							<!-- 캘린더 요일 -->
+							<div class="days-container">
+							  <div class="days">일</div>
+							  <div class="days">월</div>
+							  <div class="days">화</div>
+							  <div class="days">수</div>
+							  <div class="days">목</div>
+							  <div class="days">금</div>
+							  <div class="days">토</div>
+							</div>
+							<!-- 캘린더 날짜 (동적) -->
+							<div class="date-container">
+							  <div class="date-box"><span class="date-text">1</span></div>
+							  <div class="date-box"><span class="date-text">2</span></div>
+							  <div class="date-box"><span class="date-text">3</span></div>
+							  <div class="date-box"><span class="date-text">4</span></div>
+							  <div class="date-box">
+								<span class="date-text">5</span>
+								<div class="circle"><span class="today">5</span></div>
+							  </div>
+							  <div class="date-box"><span class="date-text">6</span></div>
+							  <div class="date-box"><span class="date-text">7</span></div>
+							</div>
+						  </div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</section>
+	<footer>
+	</footer>
 </body>
+
 </html>

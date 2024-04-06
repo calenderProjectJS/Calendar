@@ -1,0 +1,159 @@
+@import url("./common.css");
+
+* {
+  box-sizing: border-box;
+}
+
+/* reset */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+input {
+  outline: none;
+  border: none;
+  color: inherit;
+}
+
+/* common */
+* {
+  box-sizing: border-box;
+}
+
+/* color */
+:root {
+  --GRAY900: #191919;
+  --GRAY700: #666;
+  --GRAY500: #8e8e8e;
+  --GRAY300: #ccc;
+  --GRAY100: #ebebeb;
+  --RED500: #e85e36;
+}
+body {
+  /* font는 추후 상의 필요 */
+  font-family: "Roboto", "Noto Sans KR", sans-serif;
+}
+
+#main section#main-content {
+  width: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  overscroll-behavior: none;
+  /*background-color: aqua;*/
+}
+
+#main section#main-content .container-1 {
+  width: 100%;
+  display: flex;
+  margin-top: 100px;
+  margin-bottom: 40px;
+}
+
+#main section#main-content .container-1 .wrapper {
+}
+
+#main section#main-content .wrapper .header {
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+#main section#main-content .container-1 .wrapper .todo-list {
+  display: flex;
+}
+
+section#main-content .container-1 .box {
+  width: 500px;
+  height: 430px;
+  box-shadow: 2px 3px 5px #888;
+  margin-right: 10px;
+  background-color: #fbfbfb;
+}
+
+section#main-content .container-2 {
+}
+
+/* ====== 캘린더 페이지 콘텐츠 스타일 ====== */
+section#main-content .container-2 .wrapper .weekly {
+	width: 1520px;
+	display: flex;
+	align-items: center;
+	color: var(--GRAY900);
+	font-size: 14px;
+  }
+
+  section#main-content .container-2 .wrapper .weekly .main-calendar {
+  /*border: 1px solid blue;*/
+  width: 100%;
+}
+/* days-containier 스타일 (요일) */
+section#main-content .container-2 .wrapper .weekly .main-calendar .days-container {
+	width: 100%;
+  display: flex;
+  /* margin: 5px 0 5px; */
+  color: var(--GRAY500);
+}
+section#main-content .container-2 .wrapper .weekly .main-calendar .days-container .days {
+  /* border: 1px solid red; */
+  /* padding: 10px 20px; */
+  border-top: 1px solid var(--GRAY100);
+  border-right: 1px solid var(--GRAY100);
+  width: calc(100% / 7);
+  padding: 7px 8px 3px;
+  /* text-align: center; */
+}
+
+/* dates-container 스타일 (날짜) */
+section#main-content .container-2 .wrapper .weekly .main-calendar .dates-container {
+	width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  height: 500px;
+  border: 1px solid #333333;
+}
+
+.days-container .days:nth-child(7n + 1),
+.date-container .date-box:nth-child(7n + 1) {
+  color: var(--RED500);
+  border-left: 1px solid var(--GRAY100);
+}
+.date-container {
+  display: flex;
+  width: 100%;
+  /*width: 1400px;*/
+}
+
+.date-container .date-box {
+  border-bottom: 1px solid var(--GRAY100);
+  border-right: 1px solid var(--GRAY100);
+  width: calc(100% / 7);
+  height: 150px;
+  position: relative;
+  padding-top: 8px;
+}
+
+.date-container .date-box:hover {
+  background: var(--GRAY100);
+}
+
+.date-container .date-box .date-text {
+  /* font-size: 0.9em; */
+  padding: 0 10px 0;
+}
+/* 오늘 날짜 도형 */
+.circle {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: var(--GRAY900);
+  border-radius: 50%;
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  color: #fff;
+}
