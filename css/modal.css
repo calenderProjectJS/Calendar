@@ -1,0 +1,209 @@
+@import url("./common.css");
+
+/* font: Roboto, Noto Sans KR */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+/* font awesome */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css");
+
+/* reset */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+input {
+  outline: none;
+  border: none;
+  color: inherit;
+  background: transparent;
+}
+
+/* common */
+* {
+  box-sizing: border-box;
+}
+
+/* color */
+:root {
+  --GRAY900: #191919;
+  --GRAY700: #666;
+  --GRAY500: #8e8e8e;
+  --GRAY300: #ccc;
+  --GRAY100: #ebebeb;
+  --RED500: #e85e36;
+}
+body {
+  /* font는 추후 상의 필요 */
+  font-family: "Roboto", "Noto Sans KR", sans-serif;
+}
+
+/* ====================== modal common */
+
+.modal-overlay {
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  visibility: hidden;
+  /* 기본적으로 숨김 */
+}
+
+.modal-overlay:not(.hidden) {
+  visibility: visible;
+}
+
+.modal-content {
+  width: 500px;
+  height: 380px;
+  background: #fefefe;
+  position: absolute;
+  left: 50%;
+  top: 100px;
+  transform: translate(-50%, 0);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.08);
+  padding: 35px 25px 25px;
+}
+
+.modal-content .modal-close {
+  font-size: 25px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+/* ===================================== modal common end */
+
+/* ===================================== modal content */
+
+.modal-content .todo-save {
+  font-size: 15px;
+}
+
+.modal-content .todo-save h2 {
+  font-size: 20px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.modal-content .todo-save .wrapper {
+  display: flex;
+  margin-bottom: 20px;
+  color: var(--GRAY500);
+}
+
+.modal-content .todo-save .title {
+  border-bottom: 1px solid var(--GRAY500);
+  padding-bottom: 10px;
+}
+
+.modal-content .todo-save .descript i {
+  padding-top: 10px;
+}
+
+.modal-content .todo-save .txt-wrapper {
+  width: 100%;
+  border: 0.8px solid var(--GRAY500);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.modal-content .todo-save .txt-wrapper .txt-field {
+  font-size: inherit;
+  width: inherit;
+  border: 0 none;
+  outline: 0 none;
+  resize: none;
+  background-color: transparent;
+}
+
+.modal-content .todo-save .txt-wrapper .txt-len-info {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 12px;
+  color: var(--GRAY300);
+}
+
+.modal-content .todo-save .time, .repeat {
+	display: flex;
+	align-items: center;
+}
+
+.modal-content .todo-save .time .select-time .time-btn {
+	width: 200px;
+	border: 0.8px solid var(--GRAY500);
+	border-radius: 5px;
+	padding: 10px;
+	text-align: left;
+	color: inherit;
+	cursor: pointer;
+}
+
+.modal-content .todo-save .wrapper-btn {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.modal-content .todo-save button.save {
+  width: 80px;
+  height: 30px;
+  color: var(--GRAY500);
+  background: var(--GRAY100);
+}
+
+.modal-content .todo-save button.on {
+  background: #fee500;
+  color: #0a0a0a;
+  cursor: pointer;
+}
+
+.modal-content .todo-save i {
+  color: var(--GRAY700);
+  margin-right: 10px;
+}
+
+/* ================================ dropdown common */
+
+.dropdown {
+	position: relative;
+}
+
+.dropdown .btn {
+	font-size: inherit;
+	width: 200px;
+	border: 0.8px solid var(--GRAY500);
+	border-radius: 5px;
+	padding: 10px;
+	text-align: left;
+	color: inherit;
+	cursor: pointer;
+}
+
+#drop-content {
+	display: none;
+	position: absolute;
+	z-index: 99;
+}
+
+#drop-content.show {
+	display: block;
+}
+
+#drop-content a {
+	width: 200px;
+	display: block;
+	font-size: 20px;
+	background: #dfdfdf;
+	color: black;
+	text-decoration: none;
+	padding: 10px 36px;
+	margin-top: 2px;
+}
+
+#drop-content a:hover {
+	background: rgb(61, 60, 60);
+	color: #fff;
+}
