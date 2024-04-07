@@ -1,5 +1,5 @@
 // 현재 기준 날짜 및 시간
-let date = new Date();
+let dateNow = new Date();
 const todayYear = dateNow.getFullYear();
 const todayMonth = dateNow.getMonth();
 const todayDate = dateNow.getDate();
@@ -36,13 +36,19 @@ const addTodayCircle = (dates) => {
       `span[data-date-idx="${todayIndex}"]`
     );
 
+    // computed style에서 색상 값 가져오기
+    const textColor = window.getComputedStyle($todaySpan).color;
+
     // div.today-circle 태그 생성
     const $todayCircle = document.createElement("div");
     $todayCircle.classList.add("today-circle");
     $todayCircle.textContent = $todaySpan.textContent;
+    $todayCircle.style.backgroundColor = textColor;
 
     // 오늘 날짜 div.date-box에 div.today-circle 태그 추가
     $todaySpan.parentElement.appendChild($todayCircle);
+    console.log($todayCircle.style.backgroundColor); 
+    console.log($todayCircle); 
   }
 };
 const generateDatesView = (year, month) => {
