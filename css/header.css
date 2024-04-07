@@ -19,18 +19,17 @@ button {
 /* =========================== header */
 
 header {
-	height: 64px;
-	/* background: gray; */
-	display: flex;
-	padding: 8px;
-	border-bottom: 1px solid #aaa;
 }
 
 header .container {
-	width: 100%;
-	height: 100%;
+	width: 1920px;
+	height: 64px;
 	display: flex;
+	justify-content: center;
 	align-items: center;
+	border-bottom: 1px solid #aaa;
+	padding: 8px;
+	margin: 0 auto;
 }
 
 header .container h1.logo {
@@ -78,22 +77,24 @@ header .container .wrapper .setting-wrapper {
 /* =================================== main */
 
 #main {
+	width: 1920px;
 	height: calc(100vh - 64px);
 	display: flex;
 	overscroll-behavior: none;
+	margin: 0 auto;
 }
 
 /* =================================== main side */
 
 #main section#side {
-	width: 256px;
+	width: 290px;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* overflow: hidden; */
-	/* overflow-y: scroll; */
-	/* overscroll-behavior: none; */
+	overflow: hidden;
+	overflow-y: scroll;
+	overscroll-behavior: none;
 }
 
 #main section#side .menu {
