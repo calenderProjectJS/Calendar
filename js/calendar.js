@@ -50,8 +50,6 @@ const addTodayCircle = (dates) => {
 
     // 오늘 날짜 div.date-box에 div.today-circle 태그 추가
     $todaySpan.parentElement.appendChild($todayCircle);
-    console.log($todayCircle.style.backgroundColor);
-    console.log($todayCircle);
   }
 };
 const generateDatesView = (year, month) => {
@@ -132,17 +130,11 @@ const renderCalendarView = (year = todayYear, month = todayMonth) => {
   }
 };
 
-// 지난 달 이동 함수 (버튼)
-// 다음 달 이동 함수 (버튼)
-// 오늘 이동 함수 (버튼)
-
-
 // 이전 달 또는 다음 달로 이동하는 함수
 const goToMonth = (direction) => {
   // 현재 월에 방향을 더하고, 12로 나눈 나머지를 새로운 월로 설정
   viewMonth = (viewMonth + direction + 12) % 12;
-  
-  console.log(viewMonth);
+
   // 이전 달로 이동할 때 연도 조정
   if (viewMonth === 11 && direction === -1) {
     viewYear--;
