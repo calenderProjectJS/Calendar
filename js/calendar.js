@@ -4,6 +4,9 @@ const todayYear = dateNow.getFullYear();
 const todayMonth = dateNow.getMonth();
 const todayDate = dateNow.getDate();
 
+let viewYear = todayYear;
+let viewMonth = todayMonth;
+
 //=====함수 정의 =====//
 
 // inactive 클래스 추가하는 함수
@@ -96,10 +99,10 @@ const generateDatesView = (year, month) => {
 };
 
 // 캘린더뷰 날짜 렌더링 함수 (6주 * 7요일 = 총 42칸)
-const renderCalendarView = () => {
+const renderCalendarView = (year = todayYear, month = todayMonth) => {
   // 캘린더뷰 초기값은 현재 기준 연월
-  const viewYear = todayYear;
-  const viewMonth = todayMonth;
+  viewYear = year;
+  viewMonth = month;
 
   // 캘린더 헤더 제목은 뷰 기준으로 변경
   // 버튼 고려해서 수정할 예정
@@ -139,6 +142,7 @@ const goToMonth = (direction) => {
   // 현재 월에 방향을 더하고, 12로 나눈 나머지를 새로운 월로 설정
   viewMonth = (viewMonth + direction + 12) % 12;
   
+  console.log(viewMonth);
   // 이전 달로 이동할 때 연도 조정
   if (viewMonth === 11 && direction === -1) {
     viewYear--;
@@ -148,7 +152,7 @@ const goToMonth = (direction) => {
     viewYear++;
   }
   
-  renderCalendarView(); // 달력 다시 렌더링
+  renderCalendarView(viewYear, viewMonth); // 달력 다시 렌더링
 };
 
 
@@ -167,5 +171,5 @@ document.querySelector('.go-next').addEventListener('click', () => {
 });
 // 오늘 버튼 클릭 이벤트 핸들러
 document.querySelector('.go-today').addEventListener('click', () => {
-
+  renderCalendarView(todayYear, todayMonth);
 })
