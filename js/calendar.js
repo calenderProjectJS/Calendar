@@ -47,8 +47,8 @@ const addTodayCircle = (dates) => {
 
     // 오늘 날짜 div.date-box에 div.today-circle 태그 추가
     $todaySpan.parentElement.appendChild($todayCircle);
-    console.log($todayCircle.style.backgroundColor); 
-    console.log($todayCircle); 
+    console.log($todayCircle.style.backgroundColor);
+    console.log($todayCircle);
   }
 };
 const generateDatesView = (year, month) => {
@@ -103,7 +103,9 @@ const renderCalendarView = () => {
 
   // 캘린더 헤더 제목은 뷰 기준으로 변경
   // 버튼 고려해서 수정할 예정
-  document.querySelector(".year-month").textContent = `${viewYear}년 ${viewMonth + 1}월`;
+  document.querySelector(".year-month").textContent = `${viewYear}년 ${
+    viewMonth + 1
+  }월`;
 
   // datesView 배열 생성
   const datesView = generateDatesView(viewYear, viewMonth);
@@ -131,6 +133,39 @@ const renderCalendarView = () => {
 // 다음 달 이동 함수 (버튼)
 // 오늘 이동 함수 (버튼)
 
-//=== 함수 실행 영역
+
+// 이전 달 또는 다음 달로 이동하는 함수
+const goToMonth = (direction) => {
+  // 현재 월에 방향을 더하고, 12로 나눈 나머지를 새로운 월로 설정
+  viewMonth = (viewMonth + direction + 12) % 12;
+  
+  // 이전 달로 이동할 때 연도 조정
+  if (viewMonth === 11 && direction === -1) {
+    viewYear--;
+  }
+  // 다음 달로 이동할 때 연도 조정
+  if (viewMonth === 0 && direction === 1) {
+    viewYear++;
+  }
+  
+  renderCalendarView(); // 달력 다시 렌더링
+};
+
+
+//===== 함수 실행 영역 =====//
 
 renderCalendarView();
+
+// 이전 달 버튼 클릭 이벤트 핸들러
+document.querySelector('.go-prev').addEventListener('click', () => {
+  goToMonth(-1); // 방향을 -1로 설정하여 이전 달로 이동
+});
+
+// 다음 달 버튼 클릭 이벤트 핸들러
+document.querySelector('.go-next').addEventListener('click', () => {
+  goToMonth(1); // 방향을 1로 설정하여 다음 달로 이동
+});
+// 오늘 버튼 클릭 이벤트 핸들러
+document.querySelector('.go-today').addEventListener('click', () => {
+
+})
