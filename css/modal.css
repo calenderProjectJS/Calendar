@@ -1,4 +1,5 @@
 @import url("./common.css");
+@import url("./calendar.css");
 
 /* font: Roboto, Noto Sans KR */
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
@@ -133,7 +134,6 @@ body {
 }
 
 .modal-content .todo-save .time .select-time .time-btn {
-	width: 200px;
 	border: 0.8px solid var(--GRAY500);
 	border-radius: 5px;
 	padding: 10px;
@@ -169,11 +169,12 @@ body {
 
 .dropdown {
 	position: relative;
+	width: 250px;
 }
 
 .dropdown .btn {
+	width: inherit;
 	font-size: inherit;
-	width: 200px;
 	border: 0.8px solid var(--GRAY500);
 	border-radius: 5px;
 	padding: 10px;
@@ -183,6 +184,7 @@ body {
 }
 
 #drop-content {
+	width: inherit;
 	display: none;
 	position: absolute;
 	z-index: 99;
@@ -192,18 +194,86 @@ body {
 	display: block;
 }
 
+/* drop-content monthly custom style */
+
+#drop-content {
+	width: inherit;
+	background: #fff;
+	padding: 5px;
+	border: 0.8px solid var(--GRAY500);
+	border-radius: 5px;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#drop-content .monthly {
+	width: 100%;
+	padding: 5px;
+}
+
+#drop-content .monthly .header-calendar {
+	width: inherit;
+	padding: 0;
+	display: flex;
+	align-items: center;
+}
+
+#drop-content .monthly .header-calendar .nav-calendar {
+	width: inherit;
+	cursor: pointer;
+	border: none;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 3px;
+}
+
+#drop-content .monthly .header-calendar .nav-calendar button {
+	cursor: pointer;
+}
+
+#drop-content .monthly .header-calendar .nav-calendar .year-month {
+	font-size: 15px;
+	display: flex;
+	align-items: center;
+}
+
+#drop-content .monthly .days-container {
+	margin-bottom: 3px;
+}
+
+#drop-content .monthly .days-container .days {
+	font-size: 12px;
+	border: none;
+	text-align: center;
+}
+
+#drop-content .monthly .date-container {
+	width: inherit;
+}
+
+#drop-content .monthly .date-container .date-box {
+	height: 28px;
+	cursor: pointer;
+	border: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+}
+#drop-content .monthly .date-container .date-box span {
+	text-align: center;
+}
+
+#drop-content .monthly .date-container .circle {
+	position: static;
+}
+
 #drop-content a {
-	width: 200px;
 	display: block;
-	font-size: 20px;
-	background: #dfdfdf;
-	color: black;
 	text-decoration: none;
-	padding: 10px 36px;
-	margin-top: 2px;
+	cursor: pointer;
+	border: none;
 }
 
 #drop-content a:hover {
-	background: rgb(61, 60, 60);
-	color: #fff;
+	cursor: pointer;
 }

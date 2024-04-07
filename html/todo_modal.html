@@ -75,11 +75,49 @@
 					<div class="dropdown select-time">
 						<button class="btn time-btn">기한 없음</button>
 						<div id="drop-content" class="content-calendar">
-							<a href='#'>Menu1</a>
-							<a href='#'>Menu2</a>
-							<a href='#'>Menu3</a>
-							<a href='#'>Menu4</a>
-							<a href='#'>Menu5</a>
+							<div class="monthly">
+								<div class="header-calendar">
+									<!-- year-month 변수 처리 필요 -->
+									<!-- 캘린더 헤더 버튼 -->
+									<div class="nav-calendar">
+										<a href="#">
+											<button class="nav-btn go-prev">
+												<i class="fas fa-chevron-left"></i>
+											</button>
+										</a>
+										<span class="year-month">2024년 4월</span>
+										<a href="#">
+											<button class="nav-btn go-next">
+												<i class="fas fa-chevron-right"></i>
+											</button>
+										</a>
+									</div>
+								</div>
+								<div class="main-calendar">
+									<!-- 캘린더 요일 -->
+									<div class="days-container">
+										<div class="days">일</div>
+										<div class="days">월</div>
+										<div class="days">화</div>
+										<div class="days">수</div>
+										<div class="days">목</div>
+										<div class="days">금</div>
+										<div class="days">토</div>
+									</div>
+									<!-- 캘린더 날짜 (동적) -->
+									<div class="date-container  weekly-selected">
+										<div class="date-box"><span class="date-text">1</span></div>
+										<div class="date-box"><span class="date-text">2</span></div>
+										<div class="date-box"><span class="date-text">3</span></div>
+										<div class="date-box"><span class="date-text">4</span></div>
+										<div class="date-box">
+											<span class="date-text circle">5</span>
+										</div>
+										<div class="date-box"><span class="date-text">6</span></div>
+										<div class="date-box"><span class="date-text">7</span></div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -103,6 +141,7 @@
 		</div>
 	</div>
 	<script>
+		/* modal event */
 		const openModalButton = document.querySelector('.add-btn-wrapper .add');
 		const $modalOverlay = document.querySelector('.modal-overlay');
 		const $modalContent = document.querySelector(".modal-content");
@@ -125,15 +164,12 @@
 		/* dropdown calendar event */
 		const $selectTime = document.querySelector(".select-time");
 		const $contentCalendar = document.querySelector(".content-calendar");
+		const outerContent = $modalOverlay;
+
 		$selectTime.addEventListener("click", (e) => {
 			e.stopPropagation();
 			e.preventDefault();
-			$contentCalendar.style.display = "block";
-		});
-		$selectTime.addEventListener("mouseleave", (e) => {
-			e.stopPropagation();
-			e.preventDefault();
-			$contentCalendar.style.display = "none";
+			$contentCalendar.classList.add("show");
 		});
 
 		/* dropdown repeat event */
@@ -142,12 +178,12 @@
 		$selectRepeat.addEventListener("click", (e) => {
 			e.stopPropagation();
 			e.preventDefault();
-			$contentRepeat.style.display = "block";
+			$contentRepeat.classList.add("show");
 		});
-		$selectRepeat.addEventListener("mouseleave", (e) => {
-			e.stopPropagation();
-			e.preventDefault();
-			$contentRepeat.style.display = "none";
-		});
+
+		outerContent.addEventListener("click", (e) => {
+			$contentCalendar.classList.remove("show");
+			$contentRepeat.classList.remove("show");
+		}, true);
 	</script>
 </body>
