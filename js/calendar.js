@@ -153,15 +153,15 @@ const goToMonth = (direction) => {
 renderCalendarView();
 
 // 이전 달 버튼 클릭 이벤트 핸들러
-document.querySelector('.go-prev').addEventListener('click', () => {
+document.querySelector('.go-prev').parentElement.addEventListener('click', () => {
   goToMonth(-1); // 방향을 -1로 설정하여 이전 달로 이동
 });
 
 // 다음 달 버튼 클릭 이벤트 핸들러
-document.querySelector('.go-next').addEventListener('click', () => {
+document.querySelector('.go-next').parentElement.addEventListener('click', () => {
   goToMonth(1); // 방향을 1로 설정하여 다음 달로 이동
 });
 // 오늘 버튼 클릭 이벤트 핸들러
-document.querySelector('.go-today').addEventListener('click', () => {
+document.querySelector('.go-today').parentElement.addEventListener('click', () => {
   renderCalendarView(todayYear, todayMonth);
 })
