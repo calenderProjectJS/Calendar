@@ -141,3 +141,8 @@ section.main_section
 section.main_section .main_contents .todoUl .footer_list {
   margin-top: 40px;
 }
+section.main_section .main_contents .todoUl .addIcon .addIconEl .btn-wrapper .color {
+  background-color: lightgrey; 
+  color: white; 
+}
+
