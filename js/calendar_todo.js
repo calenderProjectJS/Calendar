@@ -7,9 +7,31 @@ import { goToMonth } from "./calendar.js";
 // 기한 입력 button + div#drop-content.content-calendar
 // 달력에서 날짜 선택 시 버튼 textContent가 날짜로 변경
 const getSelectedDate = (e) => {
-  console.log(e.target);
- 
-  $selectedDateBox =  e.target.querySelector('.date-text');
+  
+  // e.target이 span이면 그대로, span 상위요소면 qS로 span 선택 
+  const $selectedDateBox =  (e.target.matches('.date-text') && e.target) || e.target.querySelector('.date-text');
+  
+  // 달력 헤더 year-month에서 연월 가져옴
+  const yearMonthText = $selectedDateBox.closest('.monthly').querySelector('.year-month').textContent;
+  const selectedYear = yearMonthText.slice(0, 4);
+  const selectedMonth = yearMonthText.slice(-2, -1);
+  
+  // 선택한 요소의 날짜, 요일 구하기
+  const selectedDate = $selectedDateBox.textContent;
+  const selectedDay = $selectedDateBox.dataset.dateIdx % 7;
+
+  console.log(selectedDate);
+  console.log(selectedDay);
+
+  // button.time-btn 기한 없음을 선택한 날짜로 변경
+  const $btnDate = e.target.closest('.select-time').firstElementChild;
+  $btnDate.textContent 
+  = `${selectedYear}. ${selectedMonth}. ${selectedDate}`;
+
+  console.log($btnDate.textContent);
+
+  // 추후 할일 객체에 날짜 추가하기 위해 객체 리턴
+  return {year: selectedYear, month: selectedMonth, date: selectedDate, day: selectedDay};
   
 }
 
