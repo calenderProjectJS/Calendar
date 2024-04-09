@@ -194,3 +194,19 @@ body {
 .inactive {
   opacity: 0.3;
 }
+
+/* 캘린더 할일 리스트 스타일 */
+.date-todo {
+  margin-top: 10px;
+}
+.cal-list {
+  border-right: 1px solid #a19cd3;
+  border-bottom: 1px solid #a19cd3;
+  /* border-radius: 5px; */
+  background: #e0ddfc;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 7px;
+  font-weight: 500;
+}

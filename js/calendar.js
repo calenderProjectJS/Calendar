@@ -1,3 +1,5 @@
+// import { renderRepeatToCalendarView, todoList } from "./calendar_todo";
+
 // 현재 기준 날짜 및 시간
 let dateNow = new Date();
 const todayYear = dateNow.getFullYear();
@@ -12,15 +14,14 @@ let viewMonth = todayMonth;
 // inactive 클래스 추가하는 함수
 // 캘린더에 표시된 이번달 = 지난달 말 + 이번달 + 다음달 초 (dates 배열)
 const addInactiveClass = (dates, ele) => {
-  // .date-container 요소 후손 중에서 찾기
-  // const $dateContainer = document.querySelector(".date-container");
+  // ele(.date-container) 요소 후손 중에서 찾기
   // iterate  date 요소
   dates.forEach((date, index) => {
     // currentMonth: false인 span 태그에 inactive 클래스 추가
     if (!date.currentMonth) {
       const $spanDateText = ele.querySelector(
-        `span[data-date-idx="${index}"]`
-      );
+        `div[data-date-idx="${index}"]`
+      ).firstElementChild;
       $spanDateText.classList.add("inactive");
     }
   });
@@ -36,8 +37,8 @@ const addTodayCircle = (dates, ele) => {
   // 현재 뷰에 오늘 날짜가 있다면 태그 추가, 없으면 변화 없음
   if (todayIndex > -1) {
     const $todaySpan = ele.querySelector(
-      `span[data-date-idx="${todayIndex}"]`
-    );
+      `div[data-date-idx="${todayIndex}"]`
+    ).firstElementChild;
 
     // computed style에서 색상 값 가져오기
     const textColor = window.getComputedStyle($todaySpan).color;
@@ -115,14 +116,14 @@ const renderCalendarView = (year = todayYear, month = todayMonth) => {
   // Dates 태그 형태로 정리
   const tagDates = datesView.map((date, i) => {
     date.id = i; // 원본 배열의 객체마다 id 추가
-    return  `<div class="date-box">
-        <span class="date-text" data-date-idx="${i}">${date.date}</span>
+    return  `<div class="date-box" data-date-idx="${i}">
+        <span class="date-text" data-date="${date.year}-${date.month}">${date.date}</span>
         <ul class="date-todo"></ul>
       </div>`;
   });
 
   // Dates 화면 렌더링
-  // document.querySelector(".date-container").innerHTML = tagDates.join("");
+  // ele은 div.date-container (메인 캘린더, 푸터 등 여러 개)
   const arr = document.querySelectorAll(".date-container");
   arr.forEach(ele => {
    // if (ele.classList.contains("weekly"))//weekly 예외처리(수정)
@@ -138,14 +139,6 @@ const renderCalendarView = (year = todayYear, month = todayMonth) => {
     }
   })
 
-  // // viewMonth 아닌 날짜만 흐리게 스타일 변경하는 클래스 추가
-  // addInactiveClass(datesView);
-
-  // // 현재 달과 viewMonth가 일치할 때만 함수 실행
-  // if (todayMonth === viewMonth) {
-  //   // 오늘 날짜 div.today-circle 추가 함수
-  //   addTodayCircle(datesView);
-  // }
 };
 
 // 이전 달 또는 다음 달로 이동하는 함수
@@ -177,7 +170,7 @@ const renderWeeklyView = (e) => {
 
   // 1-1. data-date-idx 는 언제나 달력에서 0 ~ 41까지 고정됨
   // 1-2. data-date-idx 를 7로 나눈 나머지가 해당 날짜의 요일
-  const selectedDateIdx = $selectedDateBox.firstElementChild.dataset.dateIdx;
+  const selectedDateIdx = $selectedDateBox.dataset.dateIdx;
   const selectedDay = selectedDateIdx % 7;
 
   // 2. 선택한 날짜가 있는 주의 첫번째 날짜(일요일)의 data-date-idx 추출
@@ -204,6 +197,7 @@ const renderWeeklyView = (e) => {
 renderCalendarView();
 // 초기화면: 이벤트 없이 weekly 렌더
 renderWeeklyView();
+// renderRepeatToCalendarView(todoList);
 
 // 이전 달 버튼 클릭 이벤트 핸들러
 document.querySelector('.go-prev').parentElement.addEventListener('click', () => {
