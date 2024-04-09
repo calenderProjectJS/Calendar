@@ -11,14 +11,14 @@ let viewMonth = todayMonth;
 
 // inactive 클래스 추가하는 함수
 // 캘린더에 표시된 이번달 = 지난달 말 + 이번달 + 다음달 초 (dates 배열)
-const addInactiveClass = (dates) => {
+const addInactiveClass = (dates, ele) => {
   // .date-container 요소 후손 중에서 찾기
-  const $dateContainer = document.querySelector(".date-container");
-  // iterate  date 요소)
+  // const $dateContainer = document.querySelector(".date-container");
+  // iterate  date 요소
   dates.forEach((date, index) => {
     // currentMonth: false인 span 태그에 inactive 클래스 추가
     if (!date.currentMonth) {
-      const $spanDateText = $dateContainer.querySelector(
+      const $spanDateText = ele.querySelector(
         `span[data-date-idx="${index}"]`
       );
       $spanDateText.classList.add("inactive");
@@ -26,7 +26,7 @@ const addInactiveClass = (dates) => {
   });
 };
 // 오늘 날짜가 현재 뷰에 있다면 div.today-circle 추가하는 함수
-const addTodayCircle = (dates) => {
+const addTodayCircle = (dates, ele) => {
   // datesView에서 오늘 날짜 인덱스 구하기
   const todayIndex = dates.findIndex(
     ({ year, month, date }) =>
@@ -35,7 +35,7 @@ const addTodayCircle = (dates) => {
 
   // 현재 뷰에 오늘 날짜가 있다면 태그 추가, 없으면 변화 없음
   if (todayIndex > -1) {
-    const $todaySpan = document.querySelector(
+    const $todaySpan = ele.querySelector(
       `span[data-date-idx="${todayIndex}"]`
     );
 
@@ -118,16 +118,30 @@ const renderCalendarView = (year = todayYear, month = todayMonth) => {
   });
 
   // Dates 화면 렌더링
-  document.querySelector(".date-container").innerHTML = tagDates.join("");
+  // document.querySelector(".date-container").innerHTML = tagDates.join("");
+  const arr = document.querySelectorAll(".date-container");
+  arr.forEach(ele => {
+   // if (ele.classList.contains("weekly"))//weekly 예외처리(수정)
+     //   return ;
+    ele.innerHTML = tagDates.join("");
+    // viewMonth 아닌 날짜만 흐리게 스타일 변경하는 클래스 추가
+    addInactiveClass(datesView, ele);
+  
+    // 현재 달과 viewMonth가 일치할 때만 함수 실행
+    if (todayMonth === viewMonth) {
+      // 오늘 날짜 div.today-circle 추가 함수
+      addTodayCircle(datesView, ele);
+    }
+  })
 
-  // viewMonth 아닌 날짜만 흐리게 스타일 변경하는 클래스 추가
-  addInactiveClass(datesView);
+  // // viewMonth 아닌 날짜만 흐리게 스타일 변경하는 클래스 추가
+  // addInactiveClass(datesView);
 
-  // 현재 달과 viewMonth가 일치할 때만 함수 실행
-  if (todayMonth === viewMonth) {
-    // 오늘 날짜 div.today-circle 추가 함수
-    addTodayCircle(datesView);
-  }
+  // // 현재 달과 viewMonth가 일치할 때만 함수 실행
+  // if (todayMonth === viewMonth) {
+  //   // 오늘 날짜 div.today-circle 추가 함수
+  //   addTodayCircle(datesView);
+  // }
 };
 
 // 이전 달 또는 다음 달로 이동하는 함수
@@ -147,10 +161,45 @@ const goToMonth = (direction) => {
   renderCalendarView(viewYear, viewMonth); // 달력 다시 렌더링
 };
 
+// 선택한 날짜에 맞게 Weekly 구현
+const renderWeeklyView = (e) => {
+  // 선택한 요소(달력)에서 태그를 가져와 weekly의 date-container에 추가
+
+  // 1. 선택한 요소는 달력에서 클릭했으므로 date-container가 존재
+  // 1-1. 초기값으로 today 기준 weekly 렌더 
+  //      이벤트 발생 시 e.target을 기준으로 weekly 렌더
+  const $selectedDateBox = e ? e.target : document.querySelector(".today-circle").parentElement;
+  const $selectedCalendar = $selectedDateBox.closest('.date-container');
+
+  // 1-1. data-date-idx 는 언제나 달력에서 0 ~ 41까지 고정됨
+  // 1-2. data-date-idx 를 7로 나눈 나머지가 해당 날짜의 요일
+  const selectedDateIdx = $selectedDateBox.firstElementChild.dataset.dateIdx;
+  const selectedDay = selectedDateIdx % 7;
+
+  // 2. 선택한 날짜가 있는 주의 첫번째 날짜(일요일)의 data-date-idx 추출
+  const startDateIdx = selectedDateIdx - selectedDay;
+
+  // 3. weekly의 date-container에 추가
+  const tagDatesWeek = [];
+
+  for (let i = startDateIdx; i < 7 + startDateIdx; i++) {
+    // 3-1. weekly의 시작날짜 태그부터 마지막(토요일) 태그를 배열에 추가
+    tagDatesWeek.push($selectedCalendar.children[i].outerHTML);
+  }
+
+  // 3-2. 배열을 weeklyDateContainer의 자식으로 추가
+
+  const $weekly = document.querySelector('.weekly');
+  const $weeklyDateContainer = $weekly.querySelector('.date-container');
+  $weeklyDateContainer.innerHTML = tagDatesWeek.join("");
+};
 
 //===== 함수 실행 영역 =====//
 
+// 초기화면: 오늘 기준 calendar 렌더
 renderCalendarView();
+// 초기화면: 이벤트 없이 weekly 렌더
+renderWeeklyView();
 
 // 이전 달 버튼 클릭 이벤트 핸들러
 document.querySelector('.go-prev').parentElement.addEventListener('click', () => {
@@ -164,4 +213,12 @@ document.querySelector('.go-next').parentElement.addEventListener('click', () =>
 // 오늘 버튼 클릭 이벤트 핸들러
 document.querySelector('.go-today').parentElement.addEventListener('click', () => {
   renderCalendarView(todayYear, todayMonth);
-})
+});
+
+
+// 선택한 날짜에 따라 weekly 구현하는 함수
+document.querySelector('.date-container').addEventListener('click', e => {
+  renderWeeklyView(e);
+});
+
+export { goToMonth, renderWeeklyView };
