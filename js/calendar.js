@@ -103,10 +103,11 @@ const renderCalendarView = (year = todayYear, month = todayMonth) => {
   viewMonth = month;
 
   // 캘린더 헤더 제목은 뷰 기준으로 변경
-  // 버튼 고려해서 수정할 예정
-  document.querySelector(".year-month").textContent = `${viewYear}년 ${
-    viewMonth + 1
-  }월`;
+  // qsAll로 수정
+  const calendarHeader = document.querySelectorAll(".year-month");
+  calendarHeader.forEach(ele => {
+  ele.textContent = `${viewYear}년 ${viewMonth + 1}월`;
+  });
 
   // datesView 배열 생성
   const datesView = generateDatesView(viewYear, viewMonth);
@@ -189,9 +190,9 @@ const renderWeeklyView = (e) => {
 
   // 3-2. 배열을 weeklyDateContainer의 자식으로 추가
 
-  const $weekly = document.querySelector('.weekly');
-  const $weeklyDateContainer = $weekly.querySelector('.date-container');
-  $weeklyDateContainer.innerHTML = tagDatesWeek.join("");
+  // const $weekly = document.querySelector('.weekly');
+  // const $weeklyDateContainer = $weekly.querySelector('.date-container');
+  // $weeklyDateContainer.innerHTML = tagDatesWeek.join("");
 };
 
 //===== 함수 실행 영역 =====//
