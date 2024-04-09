@@ -166,8 +166,10 @@ const renderWeeklyView = (e) => {
   // 선택한 요소(달력)에서 태그를 가져와 weekly의 date-container에 추가
 
   // 1. 선택한 요소는 달력에서 클릭했으므로 date-container가 존재
-  const $selectedDateBox = e.target;
-  const $selectedCalendar = $selectedDateBox.parentElement;
+  // 1-1. 초기값으로 today 기준 weekly 렌더 
+  //      이벤트 발생 시 e.target을 기준으로 weekly 렌더
+  const $selectedDateBox = e ? e.target : document.querySelector(".today-circle").parentElement;
+  const $selectedCalendar = $selectedDateBox.closest('.date-container');
 
   // 1-1. data-date-idx 는 언제나 달력에서 0 ~ 41까지 고정됨
   // 1-2. data-date-idx 를 7로 나눈 나머지가 해당 날짜의 요일
@@ -176,30 +178,28 @@ const renderWeeklyView = (e) => {
 
   // 2. 선택한 날짜가 있는 주의 첫번째 날짜(일요일)의 data-date-idx 추출
   const startDateIdx = selectedDateIdx - selectedDay;
-  
-  // console.log($selectedCalendar.children[startDateIdx]);
-  // console.log($selectedCalendar.children[startDateIdx+1]);
 
   // 3. weekly의 date-container에 추가
-  
   const tagDatesWeek = [];
 
-  for (let i = startDateIdx; i < 7; i++) {
+  for (let i = startDateIdx; i < 7 + startDateIdx; i++) {
     // 3-1. weekly의 시작날짜 태그부터 마지막(토요일) 태그를 배열에 추가
     tagDatesWeek.push($selectedCalendar.children[i].outerHTML);
   }
 
   // 3-2. 배열을 weeklyDateContainer의 자식으로 추가
 
-  // const $weekly = document.querySelector('.weekly');
-  // const $weeklyDateContainer = $weekly.querySelector('.date-container');
-  // $weeklyDateContainer.innerHTML = tagDatesWeek.join("");
-
+  const $weekly = document.querySelector('.weekly');
+  const $weeklyDateContainer = $weekly.querySelector('.date-container');
+  $weeklyDateContainer.innerHTML = tagDatesWeek.join("");
 };
 
 //===== 함수 실행 영역 =====//
 
+// 초기화면: 오늘 기준 calendar 렌더
 renderCalendarView();
+// 초기화면: 이벤트 없이 weekly 렌더
+renderWeeklyView();
 
 // 이전 달 버튼 클릭 이벤트 핸들러
 document.querySelector('.go-prev').parentElement.addEventListener('click', () => {
@@ -221,4 +221,4 @@ document.querySelector('.date-container').addEventListener('click', e => {
   renderWeeklyView(e);
 });
 
-export { goToMonth };
+export { goToMonth, renderWeeklyView };
