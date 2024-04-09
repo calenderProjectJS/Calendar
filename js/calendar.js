@@ -115,7 +115,10 @@ const renderCalendarView = (year = todayYear, month = todayMonth) => {
   // Dates 태그 형태로 정리
   const tagDates = datesView.map((date, i) => {
     date.id = i; // 원본 배열의 객체마다 id 추가
-    return `<div class="date-box"><span class="date-text" data-date-idx="${i}">${date.date}</span></div>`;
+    return  `<div class="date-box">
+        <span class="date-text" data-date-idx="${i}">${date.date}</span>
+        <ul class="date-todo"></ul>
+      </div>`;
   });
 
   // Dates 화면 렌더링
