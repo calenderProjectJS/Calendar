@@ -1,4 +1,5 @@
 @import url("./common.css");
+@import url("./calendar.css");
 
 * {
   box-sizing: border-box;
@@ -37,17 +38,12 @@ body {
 
 #main section#main-content {
   width: 100%;
-  overflow: hidden;
-  overflow-y: scroll;
-  overflow-x: scroll;
-  overscroll-behavior: none;
   /*background-color: aqua;*/
 }
 
 #main section#main-content .container-1 {
   width: 100%;
   display: flex;
-  margin-top: 100px;
   margin-bottom: 40px;
 }
 
@@ -95,6 +91,16 @@ section#main-content .container-1 .box .list .checked input {
   transform: scale(1.1);
 }
 
+/* ============================================= calendar custom */
+
+section#main-content .container-1 .wrapper .calendar {
+	width: inherit;
+}
+
+section#main-content .container-1 .wrapper .calendar .header-calendar {
+	width: 100%;
+}
+
 section#main-content .container-1 .monthly {
   padding: 15px;
 }
@@ -112,14 +118,16 @@ section#main-content .container-1 .monthly .main-calendar .date-container {
   position: relative;
 }
 
-section#main-content
+
+/*  ==================== selected weekly  ================ */
+/*section#main-content
   .container-1
   .monthly
   .main-calendar
   .date-container:hover {
   background: var(--GRAY100);
   border-radius: 25px;
-}
+}*/
 
 .weekly-selected::before {
 	content: "";
@@ -153,10 +161,12 @@ section#main-content
   .monthly
   .main-calendar
   .date-container
-  .circle {
+  .today-circle {
   width: 30px;
   height: 30px;
-  position: static;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 section#main-content .container-2 {
