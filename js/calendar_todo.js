@@ -117,21 +117,29 @@ const getSelectedDate = (e) => {
 //      todo 객체에 repeat 옵션값 저장 (추가/수정될 투두리스트)
 // 0: 반복 안함, 1: 매일, 2: 매주, 3: 매월
 const setReccurrenceOption = (target) => {
-  const optionText = target.textContent;
-  let $btnRepeat = target.closest(".repeat-btn");
+  // e.target이 a이면 그대로, a 상위요소면 qS로 a 선택
+  const $selectedOption =
+  (target.matches(".repeat-option") && target) ||
+  target.querySelector(".repeat-option");
+
+  // optionText와 반복 버튼의 텍스트요소 가져오기
+  let optionText = $selectedOption.textContent;
+  let $btnRepeat = document.querySelector("button.repeat-btn");
   let repeatOptionNum = 0;
 
+  // 옵션에 따라 버튼 텍스트 변경 및 
+  //           todo객체에 repeat키 값 저장
   if (optionText === "매일") {
     repeatOptionNum = 1;
-    $btnRepeat.textContent = "매일";
+    $btnRepeat.textContent = optionText;
   } else if (optionText === "매주") {
     repeatOptionNum = 2;
-    // 가능하면 위 기한 함수 리턴되는 객체에서 day 가져오기
+    // 가능하면 todo 객체에서 day 가져오기
     // $btnRepeat.textContent = `매주 ${dayKorText(day)}`;
-    $btnRepeat.textContent = `매주`;
+    $btnRepeat.textContent = optionText;
   } else if ((optionText = "매월")) {
     repeatOptionNum = 3;
-    $btnRepeat.textContent = `매월`;
+    $btnRepeat.textContent = optionText;
     // $btnRepeat.textContent = `매월 ${date}일`;
   }
   todo.repeat = repeatOptionNum;
@@ -241,9 +249,15 @@ $selectRepeat.addEventListener("click", (e) => {
   e.preventDefault();
   $contentRepeat.classList.add("show");
 
+  
+});
+$contentRepeat.addEventListener("click", e => {
+
+  console.log("a 선택");
+  console.log(e.target);
   // e.target 드롭다운 옵션 조건 판단
   setReccurrenceOption(e.target);
-  
+
 });
 // 투두리스트 추가 수정 삭제 마다 render 해야 함
 renderRepeatToCalendarView(todoList);
