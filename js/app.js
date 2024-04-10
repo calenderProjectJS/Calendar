@@ -1,5 +1,5 @@
-import { toDoList } from "./data.js";
 import modalEvent from "./modal.js";
+import { dashboardEvent } from "./dashboard.js";
 
 modalEvent();
-console.log(toDoList);
+dashboardEvent();
