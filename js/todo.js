@@ -72,23 +72,6 @@ function handleFixButtonClick(event) {
   $modalOverlay.classList.remove("hidden");
 }
 //===================================
-const $fixBtns = document.querySelectorAll(".btn_box");
-$fixBtns.forEach(function (fixBtn) {
-  if (isChecked) {
-    fixBtn.classList.remove("color");
-    // 수정 및 삭제 버튼 클릭 이벤트 핸들러 추가
-    if (fixBtn.textContent === "삭제") {
-      fixBtn.addEventListener("click", handleDeleteButtonClick);
-    } else if (fixBtn.textContent === "수정") {
-      fixBtn.addEventListener("click", handleFixButtonClick); // 수정 버튼에 이벤트 핸들러 추가
-    }
-  } else {
-    fixBtn.classList.add("color");
-    // 수정 및 삭제 버튼 클릭 이벤트 핸들러 삭제
-    fixBtn.removeEventListener("click", handleDeleteButtonClick);
-    fixBtn.removeEventListener("click", handleFixButtonClick);
-  }
-});
 
 // ==================================삭제 기능
 function handleDeleteButtonClick(event) {
@@ -110,4 +93,112 @@ function handleDeleteButtonClick(event) {
   checkCheckbox();
 
   console.log("삭제버튼클릭");
+}
+//===================할 일을 추가하세요 (모달로 이동)====================
+const submitBtn = document.querySelector(".submit_btn");
+const inputField = document.querySelector("input[type='text']"); // 입력칸
+submitBtn.addEventListener("click", (event) => {
+  event.preventDefault(); // 기본 동작 방지
+  $modalOverlay.classList.remove("hidden"); // 모달 띄우기
+  const inputText = inputField.value; // <input> 요소의 내용 복사
+  const textarea = document.querySelector(".txt-field");
+  textarea.value = inputText; // <textarea> 요소에 붙여넣기
+});
+
+// Enter 키 입력할 때도 동일한 효과
+inputField.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault(); // 기본 동작 방지
+    submitBtn.click();
+    
+  }
+});
+
+//================모달에서 저장버튼 클릭시===============
+// 저장 버튼 클릭 이벤트 처리
+const saveButton = document.querySelector(".save");
+saveButton.addEventListener("click", function (event) {
+  event.preventDefault(); // 기본 동작 방지
+
+  // 할 일 입력란의 내용 가져오기
+  const inputText = document.querySelector(".txt-field").value;
+
+  // 수정한 할 일 목록의 체크박스 가져옴
+  const checkedCheckbox = document.querySelector(".inputEl:checked");
+
+  if (checkedCheckbox) {
+    // 체크된 체크박스가 있는 경우에만 실행
+    const todoTextElement = checkedCheckbox.closest(".todoLi").querySelector(".todo_text");
+    todoTextElement.textContent = inputText; // 텍스트 업데이트
+
+    // 모달 닫기
+    $modalOverlay.classList.add("hidden");
+
+    // 입력란의 내용을 지우기
+    clearInputField();
+  } else {
+    // 체크된 체크박스가 없는 경우는 새로운 할 일 항목을 추가
+    addTodoToList(inputText);
+    $modalOverlay.classList.add("hidden");
+    // 입력란의 내용을 지우기
+    clearInputField();
+  }
+});
+function clearInputField() {
+  const inputField = document.querySelector("input[type='text']");
+  inputField.value = ""; // 입력란 내용 지우기
+}
+// =============모달에서 저장버튼 클릭시============
+saveButton.addEventListener("click", function (event) {
+  event.preventDefault(); // 기본 동작 방지
+
+  // 할 일 입력란의 내용 가져오기
+  const inputText = document.querySelector(".txt-field").value;
+
+  // 수정한 할 일 목록의 체크박스 가져오기
+  const checkedCheckbox = document.querySelector(".inputEl:checked");
+
+  if (checkedCheckbox) {
+    // 체크된 체크박스가 있는 경우에만 실행
+    const todoTextElement = checkedCheckbox.closest(".todoLi").querySelector(".todo_text");
+    todoTextElement.textContent = inputText; // 텍스트 업데이트
+
+    // 체크된 체크박스 해제
+    checkedCheckbox.checked = false;
+  }
+
+  // 모달 닫기
+  $modalOverlay.classList.add("hidden");
+});
+
+// 엔터 키 입력 이벤트 처리
+inputField.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    console.log("123");
+    event.preventDefault(); // 기본 동작 방지
+    $modalOverlay.classList.remove("hidden"); // 모달 열기
+  }
+});
+
+// ========================할 일 추가시 LI태그 만들어서 UL에 추가=======================
+// 할 일 목록 추가 함수
+function addTodoToList(text) {
+  // 새로운 할 일 목록 요소 생성
+  const newTodoItem = document.createElement("li");
+  newTodoItem.classList.add("todoLi");
+  newTodoItem.innerHTML = `
+    <label class="checkbox">
+      <div class="input_checkbox">
+        <input type="checkbox" class="input inputEl" />
+      </div>
+      <div class="todo_text">${text}</div>
+    </label>
+    <div class="date">
+      <div class="dateText">2024.11.11</div>
+    </div>
+  `;
+
+  // List에 새로운 할 일 목록 추가
+  const todoList = document.getElementById("List");
+  todoList.appendChild(newTodoItem);
 }
