@@ -222,4 +222,4 @@ document.querySelector('.date-container').addEventListener('click', e => {
   renderWeeklyView(e);
 });
 
-export { goToMonth, renderWeeklyView };
+export { goToMonth, renderWeeklyView, renderCalendarView };

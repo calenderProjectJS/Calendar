@@ -1,6 +1,7 @@
 import { goToMonth } from "./calendar.js";
+// import { saveTodoList, loadTodoList } from "./localStorage.js";
 
-const todoList = [
+let todoList = [
   {
     title: "할일 1 매주",
     time: { year: 2024, month: 2, date: 1, day: 4 },
@@ -37,6 +38,8 @@ let todo = {
   time: { year: 2024, month: 4, date: 21, day: 0 },
   repeat: 0,
 };
+
+// saveTodoList(todoList);
 
 // 할 일 만들기로 추가 기능
 // 만들기 버튼 누르면 모달 나타남
@@ -218,6 +221,10 @@ const renderTodoItems = (filteredViewTimeArr, dateBoxArr, todo) => {
 
 //===== 함수 실행 영역 =====//
 
+// ++ todoList 업데이트
+// todoList = loadTodoList();
+// console.log(todoList);
+
 // 드롭다운 이전 달 버튼 클릭 이벤트 핸들러
 document
   .querySelector(".dropdown .go-prev")
@@ -261,5 +268,6 @@ $contentRepeat.addEventListener("click", e => {
 });
 // 투두리스트 추가 수정 삭제 마다 render 해야 함
 renderRepeatToCalendarView(todoList);
+
 
 export {todoList, renderRepeatToCalendarView};
