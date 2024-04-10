@@ -33,7 +33,21 @@
 
 */
 
-let toDoList = [
+const initTime = {
+	hour: 0,
+	minute: 0,
+	sec: 0,
+	ms: 0,
+}
+
+const initTimeStop = {
+	isRunning: false,
+	isPause: false,
+	startTime: initTime,
+	endTime: initTime
+}
+
+const toDoList = [
 	{
 		id: 1,
 		title: "할일 1",
@@ -45,22 +59,7 @@ let toDoList = [
 		},
 		repeat: 1,
 		done: false,
-		timeStop: {
-			isRunning: false,
-			isPause: false,
-			startTime: {
-				hour: 0,
-				minute: 0,
-				sec: 0,
-				ms: 0
-			},
-			endTime: {
-				hour: 0,
-				minute: 0,
-				sec: 0,
-				ms: 0
-			},
-		}
+		timeStop: initTimeStop,
 	},
 	{
 		id: 2,
@@ -73,22 +72,7 @@ let toDoList = [
 		},
 		repeat: 1,
 		done: false,
-		timeStop: {
-			isRunning: false,
-			isPause: false,
-			startTime: {
-				hour: 0,
-				minute: 0,
-				sec: 0,
-				ms: 0
-			},
-			endTime: {
-				hour: 0,
-				minute: 0,
-				sec: 0,
-				ms: 0
-			},
-		}
+		timeStop: initTimeStop,
 	},
 	{
 		id: 3,
@@ -101,22 +85,7 @@ let toDoList = [
 		},
 		repeat: 1,
 		done: false,
-		timeStop: {
-			isRunning: false,
-			isPause: false,
-			startTime: {
-				hour: 0,
-				minute: 0,
-				sec: 0,
-				ms: 0
-			},
-			endTime: {
-				hour: 0,
-				minute: 0,
-				sec: 0,
-				ms: 0
-			},
-		}
+		timeStop: initTimeStop,
 	},
 	{
 		id: 4,
@@ -129,23 +98,14 @@ let toDoList = [
 		},
 		repeat: 1,
 		done: false,
-		timeStop: {
-			isRunning: false,
-			isPause: false,
-			startTime: {
-				hour: 0,
-				minute: 0,
-				sec: 0,
-				ms: 0
-			},
-			endTime: {
-				hour: 0,
-				minute: 0,
-				sec: 0,
-				ms: 0
-			},
-		}
+		timeStop: initTimeStop,
 	},
 ];
 
-export default toDoList;
+const REPEAT = {
+	ONEDAY: "반복 없음",
+	WEEK: "매주 반복",
+	MONTH: "매달 반복",
+}
+
+export { toDoList, REPEAT, initTimeStop };
