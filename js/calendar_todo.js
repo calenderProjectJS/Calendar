@@ -21,6 +21,11 @@ const todoList = [
     time: { year: 2024, month: 4, date: 10, day: 3 },
     repeat: 3,
   },
+  {
+    title: "할일 5",
+    time: { year: 2024, month: 4, date: 27, day: 6 },
+    repeat: 0,
+  },
 ];
 let todo = {
   title: "할일",
@@ -106,7 +111,7 @@ const getSelectedDate = (e) => {
 // 3-1. 버튼에 선택한 반복 옵션 표시,
 //      todo 객체에 repeat 옵션값 저장 (추가/수정될 투두리스트)
 // 0: 반복 안함, 1: 매일, 2: 매주, 3: 매월
-const getReccurrenceOption = (target) => {
+const setReccurrenceOption = (target) => {
   const optionText = target.textContent;
   let $btnRepeat = target.closest(".repeat-btn");
   let repeatOptionNum = 0;
@@ -135,37 +140,38 @@ const renderRepeatToCalendarView = (todoList) => {
   // 메인 캘린더의 date-container 선택해서 date-box 배열로 저장
   const dateBoxArr = Array.from(document.querySelector("#main-content .date-container").children);
   
+  // 캘린더 뷰 기준 날짜마다 Date()와 date-box인덱스를 객체로 담은 배열 생성 
   const viewTimeArr = dateBoxArr.map(dateBox => {
     const {year, month, date} = getDateInfoFromSpan(dateBox.firstElementChild);
-    const dateBoxId = dateBox.dataset.dateIdx;
-    return { dateObj: new Date(year, month, date), dateBoxId };
+    const dateBoxId = +dateBox.dataset.dateIdx;
+    return { dateObj: new Date(`${year}-${month}-${date}`), dateBoxId };
   });
 
+  // 할일 리스트의 할일 마다 해당하는 날짜에 렌더
   todoList.forEach((todo) => {
     // todo의 날짜 구하기
-    const todoTime = new Date(todo.time.year, todo.time.month -1, todo.time.date).getTime();
+    const month = (todo.time.month > 1) ? todo.time.month - 1 : 0;
+    const todoTime = new Date(todo.time.year, month, todo.time.date, 0, 0, 0, 0);
     
     // todo의 repeat 값 따라 리스트 추가할 날짜만 필터
     const filteredViewTimeArr = viewTimeArr.filter(({dateObj: viewTime}, dateBoxId) => {
       let option = todo.repeat;
       // 매일 반복은 todoTime 이상의 viewTime만 필터링
-      if(option === 1) return viewTime.getTime() >= todoTime;
+      if(option === 1) return viewTime.getTime() >= todoTime.getTime();
       // 매주 반복은 todoTime 이상의 viewTime이면서 요일이 같을 때만 필터링
       else if(option === 2) {
-        console.log(todo.time.day);
-        return viewTime.getTime() >= todoTime && todo.time.day === viewTime.getDay();
+        return viewTime.getTime() >= todoTime.getTime() && todo.time.day === dateBoxId % 7;
       }
       // 매월 반복은 todoTime 이상의 viewTime이면서 날짜가 같을 때만 필터링
       else if(option === 3) return viewTime.getTime() >= todoTime && todo.time.date === viewTime.getDate();
-      else if(option === 0)return viewTime.getTime() === todoTime;  
+      else if(option === 0)return viewTime.getTime() === todoTime.getTime();  
       else return false;
     });
     
-
-    // todo 정보를 li 태그에 담기
     
     // 해당 날짜의 ul 자식요소로 li 태그 추가
     filteredViewTimeArr.forEach( ({dateBoxId}) => {
+      // todo 정보를 li 태그에 담기
       const $repeatLi = document.createElement("li");
       $repeatLi.textContent = todo.title;
       $repeatLi.classList.add("cal-list");
@@ -178,11 +184,6 @@ const renderRepeatToCalendarView = (todoList) => {
       // console.log($ul);
     });
   });
-
-
-  // date-container 전체반복해서 설정한 기간보다 뒤면 리스트태그 추가
-  // new Date(date.year, date.month, date.date) 로 크기 비교
-  // ul.date-todo appendChild li태그
 
 };
 
@@ -222,11 +223,10 @@ $selectRepeat.addEventListener("click", (e) => {
   $contentRepeat.classList.add("show");
 
   // e.target 드롭다운 옵션 조건 판단
-
-  getReccurrenceOption(e.target);
+  setReccurrenceOption(e.target);
   
 });
-// 투두리스트 추가 수정 삭제 마다 render
+// 투두리스트 추가 수정 삭제 마다 render 해야 함
 renderRepeatToCalendarView(todoList);
 
 export {todoList, renderRepeatToCalendarView};
