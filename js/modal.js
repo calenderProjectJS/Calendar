@@ -1,4 +1,5 @@
 import { insert } from "./insert.js";
+import { renderCalendarView, todayYear, todayMonth, goToMonth } from "./dashboard.js";
 
 const modalEvent = () => {
 	/* modal event */
@@ -11,6 +12,7 @@ const modalEvent = () => {
 		$modalOverlay.classList.remove('hidden');
 		$textArea.value = "";
 		$saveBtn.classList.remove("on");
+		renderCalendarView(todayYear, todayMonth, document.querySelector(".dropdown .content-calendar"));
 	});
 
 	closeModalButton.addEventListener('click', () => {
@@ -25,6 +27,7 @@ const modalEvent = () => {
 	$selectTime.addEventListener("click", (e) => {
 		e.stopPropagation();
 		e.preventDefault();
+		$contentRepeat.classList.remove("show");
 		$contentCalendar.classList.add("show");
 	});
 
@@ -34,19 +37,31 @@ const modalEvent = () => {
 	$selectRepeat.addEventListener("click", (e) => {
 		e.stopPropagation();
 		e.preventDefault();
+		$contentCalendar.classList.remove("show");
 		$contentRepeat.classList.add("show");
+	});
+
+	document.querySelector(".modal-content .go-prev").addEventListener("click", (e) => {
+		e.stopPropagation();
+		e.preventDefault();
+		goToMonth(-1, e.target.closest(".monthly"));
+	});
+
+	document.querySelector(".modal-content .go-next").addEventListener("click", (e) => {
+		e.stopPropagation();
+		e.preventDefault();
+		goToMonth(1, e.target.closest(".monthly"));
 	});
 
 	outerContent.addEventListener("click", (e) => {
 		$contentCalendar.classList.remove("show");
 		$contentRepeat.classList.remove("show");
-	}, true);
+	});
 
 	/* save button */
 	const $saveBtn = document.querySelector(".wrapper-btn .save");
 	const $textArea = document.querySelector("textarea.txt-field");
 	$textArea.addEventListener("keyup", e => {
-		console.log($textArea.value, e);
 		if ($textArea.value) {
 			$saveBtn.classList.add("on");
 		} else {
