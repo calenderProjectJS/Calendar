@@ -33,6 +33,13 @@
 
 */
 
+const REPEAT = {
+	NO: 0,
+	EVERYDAY: 1,
+	WEEK: 2,
+	MONTH: 3,
+}
+
 const initTime = {
 	hour: 0,
 	minute: 0,
@@ -57,7 +64,7 @@ const toDoList = [
 			date: 10,
 			day: 3
 		},
-		repeat: 1,
+		repeat: REPEAT.NO,
 		done: false,
 		timeStop: initTimeStop,
 	},
@@ -70,7 +77,7 @@ const toDoList = [
 			date: 10,
 			day: 3
 		},
-		repeat: 1,
+		repeat: REPEAT.NO,
 		done: false,
 		timeStop: initTimeStop,
 	},
@@ -83,7 +90,7 @@ const toDoList = [
 			date: 10,
 			day: 3
 		},
-		repeat: 1,
+		repeat: REPEAT.EVERYDAY,
 		done: false,
 		timeStop: initTimeStop,
 	},
@@ -96,16 +103,10 @@ const toDoList = [
 			date: 10,
 			day: 3
 		},
-		repeat: 1,
+		repeat: REPEAT.NO,
 		done: false,
 		timeStop: initTimeStop,
 	},
 ];
-
-const REPEAT = {
-	ONEDAY: "반복 없음",
-	WEEK: "매주 반복",
-	MONTH: "매달 반복",
-}
 
 export { toDoList, REPEAT, initTimeStop };
