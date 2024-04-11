@@ -9,6 +9,37 @@ const todayDate = dateNow.getDate();
 let viewYear = todayYear;
 let viewMonth = todayMonth;
 
+const form = (obj) => `
+									<input type="checkbox" name="" id="">
+									<span>${obj.txt}</span> `;
+
+const extractTodoListTag = (target) => {
+	return [...target.querySelector("ul.date-todo").children].map(e => e.textContent);
+}
+
+const getTodoListFromDateBox = (target) => {
+	const $today = target;
+	const $tomorrow = $today.nextSibling;
+	return {today : extractTodoListTag($today), tomorrow : extractTodoListTag($tomorrow)};
+};
+
+const makeTag = (txt) => {
+	const $new = document.createElement("li");
+	$new.innerHTML = form({txt});
+	return $new;
+};
+
+const renderTodoListBox = (target) => {
+	const obj = getTodoListFromDateBox(target);
+	const $mainContent = target.closest("#main-content");
+	const $today = $mainContent.querySelector(".todo-list .today .list");
+	const $tomorrow = $mainContent.querySelector(".todo-list .tomorrow .list");
+	$today.innerHTML = "";
+	$tomorrow.innerHTML = "";
+	obj.today.forEach(e => $today.appendChild(makeTag(e)));
+	obj.tomorrow.forEach(e => $tomorrow.appendChild(makeTag(e)));
+};
+
 const getDateInfoFromSpan = ($span) => {
 	const yearMonthText = $span.dataset.date; // "2024-4"
 	const selectedYear = +yearMonthText.split("-")[0]; // 2024
@@ -249,6 +280,9 @@ const dashboardEvent = () => {
 	document.querySelector(".dropdown .date-container").addEventListener("click", (e) => {
 		getSelectedDate(e);
 	});
+	document.querySelector(".weekly .date-container").addEventListener("click", (e) => {
+		renderTodoListBox(e.target.closest(".date-box"));
+	})
 }
 
 export { dashboardEvent, renderRepeatToCalendarView, renderCalendarView, todayYear, todayMonth, goToMonth };
