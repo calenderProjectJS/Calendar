@@ -171,14 +171,10 @@ const generateDatesView = (year, month) => {
 	return [...prevDates, ...currDates, ...nextDates];
 };
 
-const renderCalendarView = (year = todayYear, month = todayMonth) => {
+const renderCalendarView = (year = todayYear, month = todayMonth, parent) => {
 	viewYear = year;
 	viewMonth = month;
-
-	const calendarHeader = document.querySelectorAll(".year-month");
-	calendarHeader.forEach(ele => {
-		ele.textContent = `${viewYear}년 ${viewMonth + 1}월`;
-	});
+	parent.querySelector(".year-month").textContent = `${viewYear}년 ${viewMonth + 1}월`;
 	const datesView = generateDatesView(viewYear, viewMonth);
 	const tagDates = datesView.map((date, i) => {
 		date.id = i; // 원본 배열의 객체마다 id 추가
@@ -188,20 +184,15 @@ const renderCalendarView = (year = todayYear, month = todayMonth) => {
       </div>`;
 	});
 
-	const arr = document.querySelectorAll(".date-container");
-	arr.forEach(ele => {
-		if (ele.classList.contains("weekly"))//weekly 예외처리(수정)
-			return;
-		ele.innerHTML = tagDates.join("");
-		addInactiveClass(datesView, ele);
-
-		if (todayMonth === viewMonth) {
-			addTodayCircle(datesView, ele);
-		}
-	})
+	const $dateContainer = parent.querySelector(".date-container");
+	$dateContainer.innerHTML = tagDates.join("");
+	addInactiveClass(datesView, $dateContainer);
+	if (todayMonth === viewMonth) {
+		addTodayCircle(datesView, $dateContainer);
+	}
 };
 
-const goToMonth = (direction) => {
+const goToMonth = (direction, parent) => {
 	viewMonth = (viewMonth + direction + 12) % 12;
 
 	if (viewMonth === 11 && direction === -1) {
@@ -210,7 +201,7 @@ const goToMonth = (direction) => {
 	if (viewMonth === 0 && direction === 1) {
 		viewYear++;
 	}
-	renderCalendarView(viewYear, viewMonth); // 달력 다시 렌더링
+	renderCalendarView(viewYear, viewMonth, parent); // 달력 다시 렌더링
 };
 
 const renderWeeklyView = (e) => {
@@ -236,36 +227,28 @@ const renderWeeklyView = (e) => {
 };
 
 const dashboardEvent = () => {
-	renderCalendarView();
+	renderCalendarView(todayYear, todayMonth, document.querySelector(".container-1 .calendar"));
 	renderWeeklyView();
 	renderRepeatToCalendarView(toDoList);
 	document.querySelector('.date-container').addEventListener('click', e => {
 		renderWeeklyView(e);
 		renderRepeatToCalendarView(toDoList);
 	});
-	document.querySelector('.go-prev').parentElement.addEventListener('click', () => {
-		goToMonth(-1);
+	document.querySelector('.go-prev').parentElement.addEventListener('click', (e) => {
+		goToMonth(-1, e.target.closest(".monthly"));
 		renderRepeatToCalendarView(toDoList);
 	});
-	document.querySelector('.go-next').parentElement.addEventListener('click', () => {
-		goToMonth(1);
+	document.querySelector('.go-next').parentElement.addEventListener('click', (e) => {
+		goToMonth(1, e.target.closest(".monthly"));
 		renderRepeatToCalendarView(toDoList);
 	});
-	document.querySelector('.go-today').parentElement.addEventListener('click', () => {
-		renderCalendarView(todayYear, todayMonth);
+	document.querySelector('.go-today').parentElement.addEventListener('click', (e) => {
+		renderCalendarView(todayYear, todayMonth, e.target.closest(".monthly"));
 		renderRepeatToCalendarView(toDoList);
-	});
-	document.querySelector(".dropdown .go-prev").parentElement.addEventListener("click", () => {
-		goToMonth(-1);
-	});
-
-	document.querySelector(".dropdown .go-next").parentElement.addEventListener("click", () => {
-		goToMonth(1);
-	});
-
+	});	
 	document.querySelector(".dropdown .date-container").addEventListener("click", (e) => {
 		getSelectedDate(e);
 	});
 }
 
-export { dashboardEvent, renderRepeatToCalendarView };
+export { dashboardEvent, renderRepeatToCalendarView, renderCalendarView, todayYear, todayMonth, goToMonth };
