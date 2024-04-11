@@ -32,9 +32,10 @@ const makeTag = (txt) => {
 const renderTodoListBox = (target) => {
 	if (!target.matches(".today-circle")) {
 		const span = getDateInfoFromSpan(target.closest(".date-box").querySelector("span"));
+		const span2 = getDateInfoFromSpan(target.nextSibling.closest(".date-box").querySelector("span"));
 		const $title = target.closest("#main-content").querySelectorAll(".todo-list .title span");
 		$title[0].textContent = ` ${span.date}일(${days[span.day][0]})`;
-		$title[1].textContent = ` ${span.date}일(${days[span.day][0]})`;
+		$title[1].textContent = ` ${span2.date}일(${days[span2.day][0]})`;
 	}
 	const obj = getTodoListFromDateBox(target.closest(".date-box"));
 	const $mainContent = target.closest("#main-content");
@@ -110,13 +111,9 @@ const filterViewTimeArray = (viewTimeArr, todo) => {
 
 	return viewTimeArr.filter(({ dateObj: viewTime }, dateBoxId) => {
 		let option = todo.repeat;
-		// 매일 반복은 todoTime 이상의 viewTime만 필터링
 		if (option === 1) return viewTime.getTime() >= todoTime.getTime();
-		// 매주 반복은 todoTime 이상의 viewTime이면서 요일이 같을 때만 필터링
 		else if (option === 2) return viewTime.getTime() >= todoTime.getTime() && todo.time.day === dateBoxId % 7;
-		// 매월 반복은 todoTime 이상의 viewTime이면서 날짜가 같을 때만 필터링
 		else if (option === 3) return viewTime.getTime() >= todoTime && todo.time.date === viewTime.getDate();
-		// 반복 안함은 todo 날짜만 필터링
 		else if (option === 0) return viewTime.getTime() === todoTime.getTime();
 		else return false;
 	});
