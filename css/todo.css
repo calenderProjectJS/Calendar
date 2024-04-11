@@ -145,4 +145,13 @@ section.main_section .main_contents .todoUl .addIcon .addIconEl .btn-wrapper .co
   background-color: lightgrey; 
   color: white; 
 }
-
+#none {
+  color: grey;
+  text-align: center;
+  margin-top: 230px;
+  font-size: 30px;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+}
