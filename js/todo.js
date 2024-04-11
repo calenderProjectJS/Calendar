@@ -35,6 +35,7 @@ function checkCheckbox() {
     }
   });
 }
+
 // 이벤트 핸들러
 window.onload = function () {
   // 페이지가 로드될 때마다 체크박스 상태 확인
@@ -52,7 +53,10 @@ function handleFixButtonClick(event) {
   // 수정 버튼 클릭시에 이벤트 작성
   const $checkboxes = document.querySelectorAll(".inputEl:checked");
   const checkedCount = $checkboxes.length;
-
+  const $fixBtns = document.querySelectorAll(".btn_box");
+  $fixBtns.forEach(($fixBtn) => {
+    $fixBtn.classList.add("color");
+  });
   // 체크된 체크박스가 2개 이상인 경우 alert 출력
   if (checkedCount !== 1) {
     alert("한 가지만 선택해주세요.");
@@ -76,7 +80,7 @@ function handleFixButtonClick(event) {
 // ==================================삭제 기능
 function handleDeleteButtonClick(event) {
   // 삭제 버튼 클릭시에 이벤트 작성
-
+  console.log("dasd");
   // 체크된 체크박스 가져옴
   const $checkboxes = document.querySelectorAll(".inputEl:checked");
 
@@ -86,6 +90,15 @@ function handleDeleteButtonClick(event) {
     if (userConfirm) {
       const listItem = checkbox.closest(".todoLi");
       listItem.parentNode.removeChild(listItem);
+    }
+    // 모든 할 일 목록을 삭제했는지 확인하고, none 추가.
+    //******************************이거 왜 안댐?********************/
+    const noneDiv = document.getElementById("none");
+    const todoList = document.getElementById("List");
+    if (todoList.childElementCount === 0) {
+      noneDiv.style.display = "";
+    } else {
+      noneDiv.style.display = "none";
     }
   });
 
@@ -98,6 +111,16 @@ function handleDeleteButtonClick(event) {
 const submitBtn = document.querySelector(".submit_btn");
 const inputField = document.querySelector("input[type='text']"); // 입력칸
 submitBtn.addEventListener("click", (event) => {
+  // document.getElementById("checkbox").checked = false;
+  const checkedCheckbox = [...document.querySelectorAll(".inputEl:checked")];
+  checkedCheckbox.forEach((checkbox) => {
+    checkbox.checked = false;
+  });
+  const $fixBtns = document.querySelectorAll(".btn_box");
+  $fixBtns.forEach(($fixBtn) => {
+    $fixBtn.classList.add("color");
+  });
+
   event.preventDefault(); // 기본 동작 방지
   $modalOverlay.classList.remove("hidden"); // 모달 띄우기
   const inputText = inputField.value; // <input> 요소의 내용 복사
@@ -110,7 +133,7 @@ inputField.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     event.preventDefault(); // 기본 동작 방지
     submitBtn.click();
-    
+    // 체크박스 풀어
   }
 });
 
@@ -128,10 +151,13 @@ saveButton.addEventListener("click", function (event) {
 
   if (checkedCheckbox) {
     // 체크된 체크박스가 있는 경우에만 실행
-    const todoTextElement = checkedCheckbox.closest(".todoLi").querySelector(".todo_text");
+    const todoTextElement = checkedCheckbox
+      .closest(".todoLi")
+      .querySelector(".todo_text");
     todoTextElement.textContent = inputText; // 텍스트 업데이트
 
     // 모달 닫기
+
     $modalOverlay.classList.add("hidden");
 
     // 입력란의 내용을 지우기
@@ -160,7 +186,9 @@ saveButton.addEventListener("click", function (event) {
 
   if (checkedCheckbox) {
     // 체크된 체크박스가 있는 경우에만 실행
-    const todoTextElement = checkedCheckbox.closest(".todoLi").querySelector(".todo_text");
+    const todoTextElement = checkedCheckbox
+      .closest(".todoLi")
+      .querySelector(".todo_text");
     todoTextElement.textContent = inputText; // 텍스트 업데이트
 
     // 체크된 체크박스 해제
@@ -169,6 +197,10 @@ saveButton.addEventListener("click", function (event) {
 
   // 모달 닫기
   $modalOverlay.classList.add("hidden");
+  const $checkboxes = document.querySelectorAll(".inputEl");
+  $checkboxes.forEach(function (checkbox) {
+    checkbox.addEventListener("change", checkCheckbox);
+  });
 });
 
 // 엔터 키 입력 이벤트 처리
@@ -201,4 +233,14 @@ function addTodoToList(text) {
   // List에 새로운 할 일 목록 추가
   const todoList = document.getElementById("List");
   todoList.appendChild(newTodoItem);
+
+  // li 태그 추가된 후에는 #none 숨김
+  const noneDiv = document.getElementById("none");
+  noneDiv.style.display = "none";
+
+  // 모달 나갈때 삭제, 수정 버튼 비활성화
+  const $checkboxes = document.querySelectorAll(".inputEl");
+  $checkboxes.forEach(function (checkbox) {
+    checkbox.addEventListener("change", checkCheckbox);
+  });
 }
