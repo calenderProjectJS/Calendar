@@ -19,7 +19,7 @@ const extractTodoListTag = (target) => {
 
 const getTodoListFromDateBox = (target) => {
 	const $today = target;
-	const $tomorrow = $today.nextSibling;
+	const $tomorrow = $today.nextSibling ? $today.nextSibling : $today;
 	return {today : extractTodoListTag($today), tomorrow : extractTodoListTag($tomorrow)};
 };
 
@@ -30,7 +30,13 @@ const makeTag = (txt) => {
 };
 
 const renderTodoListBox = (target) => {
-	const obj = getTodoListFromDateBox(target);
+	if (!target.matches(".today-circle")) {
+		const span = getDateInfoFromSpan(target.closest(".date-box").querySelector("span"));
+		const $title = target.closest("#main-content").querySelectorAll(".todo-list .title span");
+		$title[0].textContent = ` ${span.date}일(${days[span.day][0]})`;
+		$title[1].textContent = ` ${span.date}일(${days[span.day][0]})`;
+	}
+	const obj = getTodoListFromDateBox(target.closest(".date-box"));
 	const $mainContent = target.closest("#main-content");
 	const $today = $mainContent.querySelector(".todo-list .today .list");
 	const $tomorrow = $mainContent.querySelector(".todo-list .tomorrow .list");
@@ -232,7 +238,7 @@ const goToMonth = (direction, parent) => {
 	if (viewMonth === 0 && direction === 1) {
 		viewYear++;
 	}
-	renderCalendarView(viewYear, viewMonth, parent); // 달력 다시 렌더링
+	renderCalendarView(viewYear, viewMonth, parent);
 };
 
 const renderWeeklyView = (e) => {
@@ -261,6 +267,7 @@ const dashboardEvent = () => {
 	renderCalendarView(todayYear, todayMonth, document.querySelector(".container-1 .calendar"));
 	renderWeeklyView();
 	renderRepeatToCalendarView(toDoList);
+	renderTodoListBox(document.querySelector(".weekly .date-container .date-box .today-circle"));
 	document.querySelector('.date-container').addEventListener('click', e => {
 		renderWeeklyView(e);
 		renderRepeatToCalendarView(toDoList);
@@ -273,6 +280,7 @@ const dashboardEvent = () => {
 		goToMonth(1, e.target.closest(".monthly"));
 		renderRepeatToCalendarView(toDoList);
 	});
+	/* 예외처리 하기 */
 	document.querySelector('.go-today').parentElement.addEventListener('click', (e) => {
 		renderCalendarView(todayYear, todayMonth, e.target.closest(".monthly"));
 		renderRepeatToCalendarView(toDoList);
@@ -281,8 +289,8 @@ const dashboardEvent = () => {
 		getSelectedDate(e);
 	});
 	document.querySelector(".weekly .date-container").addEventListener("click", (e) => {
-		renderTodoListBox(e.target.closest(".date-box"));
+		renderTodoListBox(e.target);
 	})
 }
 
-export { dashboardEvent, renderRepeatToCalendarView, renderCalendarView, todayYear, todayMonth, goToMonth };
+export { dashboardEvent, renderRepeatToCalendarView, renderCalendarView, todayYear, todayMonth, goToMonth, renderTodoListBox };

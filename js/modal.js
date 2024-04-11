@@ -1,5 +1,5 @@
 import { insert } from "./insert.js";
-import { renderCalendarView, todayYear, todayMonth, goToMonth } from "./dashboard.js";
+import { renderCalendarView, todayYear, todayMonth, goToMonth, renderTodoListBox } from "./dashboard.js";
 
 const modalEvent = () => {
 	/* modal event */
@@ -77,6 +77,7 @@ const modalEvent = () => {
 				time: $selectTime.firstElementChild.textContent,
 				repeat: $selectRepeat.firstElementChild.textContent
 			});
+			renderTodoListBox(document.querySelector(".weekly .date-container .date-box .today-circle"));
 			$modalOverlay.classList.add("hidden");
 		}
 	});
