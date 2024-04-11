@@ -1,45 +1,8 @@
 import { goToMonth } from "./calendar.js";
 import { saveTodoList, loadTodoList } from "./localStorage.js";
+// import { toDoList } from "./data.js";
 
-let todoList = [
-  {
-    title: "할일 1 매주",
-    time: { year: 2024, month: 2, date: 1, day: 4 },
-    repeat: 2,
-    // color: '#FFF7DF',
-  },
-  {
-    title: "할일 2 반복안함",
-    time: { year: 2024, month: 4, date: 8, day: 1 },
-    repeat: 0,
-    color: '#DBF4FF', 
-  },
-  {
-    title: "할일 3 매주",
-    time: { year: 2024, month: 4, date: 10, day: 2 },
-    repeat: 2,
-    color: '#A9FDE9',
-  },
-  {
-    title: "할일 4 매월",
-    time: { year: 2024, month: 3, date: 10, day: 3 },
-    repeat: 3,
-    color: '#FCFFC4',
-  },
-  {
-    title: "할일 5 매일",
-    time: { year: 2024, month: 4, date: 27, day: 6 },
-    repeat: 1,
-    color: '#FFE8F1',
-  },
-];
-let todo = {
-  title: "할일",
-  time: { year: 2024, month: 4, date: 21, day: 0 },
-  repeat: 0,
-};
-
-
+let toDoList = loadTodoList();
 
 // 할 일 만들기로 추가 기능
 // 만들기 버튼 누르면 모달 나타남
@@ -218,58 +181,27 @@ const renderTodoItems = (filteredViewTimeArr, dateBoxArr, todo) => {
 };
 
 // 모달 저장 버튼 클릭 시 추가 완료
-
-//===== 함수 실행 영역 =====//
-
-// ++ todoList 업데이트
-// todoList = loadTodoList();
-// console.log(todoList);
-
-saveTodoList(todoList);
-
-// 드롭다운 이전 달 버튼 클릭 이벤트 핸들러
-document
-  .querySelector(".dropdown .go-prev")
-  .parentElement.addEventListener("click", () => {
-    console.log("이전버튼");
-    goToMonth(-1); // 방향을 -1로 설정하여 이전 달로 이동
-  });
-
-// 드롭다운 다음 달 버튼 클릭 이벤트 핸들러
-document
-  .querySelector(".dropdown .go-next")
-  .parentElement.addEventListener("click", () => {
-    console.log("다음버튼");
-    goToMonth(1); // 방향을 1로 설정하여 다음 달로 이동
-  });
-
-document
-  .querySelector(".dropdown .date-container")
-  .addEventListener("click", (e) => {
-    console.log("드롭다운 날짜 선택");
-    getSelectedDate(e);
-  });
-
-// 테스트를 위해 html script에서 가져왔습니다. 병합 시 주의!
-const $selectRepeat = document.querySelector(".select-repeat");
-const $contentRepeat = document.querySelector(".content-repeat");
-$selectRepeat.addEventListener("click", (e) => {
-  e.stopPropagation();
-  e.preventDefault();
-  $contentRepeat.classList.add("show");
-
-  
-});
-$contentRepeat.addEventListener("click", e => {
-
-  console.log("a 선택");
-  console.log(e.target);
-  // e.target 드롭다운 옵션 조건 판단
-  setReccurrenceOption(e.target);
-
-});
-// 투두리스트 추가 수정 삭제 마다 render 해야 함
-renderRepeatToCalendarView(todoList);
+const insertCal = (obj) => {
+	console.log(obj);
+	const time = obj.time !== "기한 없음" ? util.getDateInfoFromText(obj.time) : {
+		year: todayYear,
+		month: todayMonth,
+		date: todayDate,
+		day: todayDay,
+	};
+  let toDoList = loadTodoList();
+	toDoList.push({
+		id: toDoList.length + 1,
+		title: obj.title,
+		time,
+		repeat : REPEAT.NO,
+		done: false,
+	});
+  saveTodoList(toDoList);
+	renderRepeatToCalendarView(toDoList);
+}
 
 
-export {todoList, renderRepeatToCalendarView};
+
+
+export { insertCal, getSelectedDate, setReccurrenceOption, renderRepeatToCalendarView };

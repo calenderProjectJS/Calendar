@@ -1,6 +1,7 @@
 // import { renderRepeatToCalendarView, todoList } from "./calendar_todo.js";
 import { renderRepeatToCalendarView } from "./calendar_todo.js";
 import { loadTodoList } from "./localStorage.js";
+import { toDoList } from "./data.js";
 
 // 현재 기준 날짜 및 시간
 let dateNow = new Date();
@@ -195,35 +196,6 @@ const renderWeeklyView = (e) => {
   // $weeklyDateContainer.innerHTML = tagDatesWeek.join("");
 };
 
-//===== 함수 실행 영역 =====//
 
-// 초기화면: 오늘 기준 calendar 렌더
-renderCalendarView();
-// 초기화면: 이벤트 없이 weekly 렌더
-renderWeeklyView();
-renderRepeatToCalendarView(todoList);
-
-// 이전 달 버튼 클릭 이벤트 핸들러
-document.querySelector('.go-prev').parentElement.addEventListener('click', () => {
-  goToMonth(-1); // 방향을 -1로 설정하여 이전 달로 이동
-  renderRepeatToCalendarView(todoList);
-});
-
-// 다음 달 버튼 클릭 이벤트 핸들러
-document.querySelector('.go-next').parentElement.addEventListener('click', () => {
-  goToMonth(1); // 방향을 1로 설정하여 다음 달로 이동
-  renderRepeatToCalendarView(todoList);
-});
-// 오늘 버튼 클릭 이벤트 핸들러
-document.querySelector('.go-today').parentElement.addEventListener('click', () => {
-  renderCalendarView(todayYear, todayMonth);
-  renderRepeatToCalendarView(todoList);
-});
-
-
-// 선택한 날짜에 따라 weekly 구현하는 함수
-document.querySelector('.date-container').addEventListener('click', e => {
-  renderWeeklyView(e);
-});
 
 export { goToMonth, renderWeeklyView, renderCalendarView };
