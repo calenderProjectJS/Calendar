@@ -29,6 +29,21 @@ const makeTag = (txt) => {
 	return $new;
 };
 
+/* 
+	선택된 날짜와 다음 날짜의 할일 구하기
+*/
+const getTodoselectedDateBox = (todoList, $dateBox) => {
+	const dateBoxArr = [...document.querySelector("#main-content .date-container").children];
+	const viewTimeArr = generateViewTimeArray(dateBoxArr);
+	dateBoxArr.forEach(ele => {
+		ele.querySelector(".date-todo").innerHTML = "";
+	});
+	todoList.forEach((todo) => {
+		const filteredViewTimeArr = filterViewTimeArray(viewTimeArr, todo);
+		renderTodoItems(filteredViewTimeArr, dateBoxArr, todo);
+	});
+};
+
 const renderTodoListBox = (target) => {
 	if (!target.matches(".today-circle")) {
 		const span = getDateInfoFromSpan(target.closest(".date-box").querySelector("span"));
@@ -111,9 +126,13 @@ const filterViewTimeArray = (viewTimeArr, todo) => {
 
 	return viewTimeArr.filter(({ dateObj: viewTime }, dateBoxId) => {
 		let option = todo.repeat;
+// 매일 반복은 todoTime 이상의 viewTime만 필터링
 		if (option === 1) return viewTime.getTime() >= todoTime.getTime();
+// 매주 반복은 todoTime 이상의 viewTime이면서 요일이 같을 때만 필터링
 		else if (option === 2) return viewTime.getTime() >= todoTime.getTime() && todo.time.day === dateBoxId % 7;
+// 매월 반복은 todoTime 이상의 viewTime이면서 날짜가 같을 때만 필터링
 		else if (option === 3) return viewTime.getTime() >= todoTime && todo.time.date === viewTime.getDate();
+// 반복 안함은 todo 날짜만 필터링
 		else if (option === 0) return viewTime.getTime() === todoTime.getTime();
 		else return false;
 	});
