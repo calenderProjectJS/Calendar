@@ -110,7 +110,7 @@ section.main_section .main_contents .todoUl .addIcon .addIconEl .add_btn {
 }
 section.main_section .main_contents .todoUl #List {
   /* background: green; */
-  height: 50vh;
+  height: 460px;
   overflow: auto;
 }
 section.main_section .main_contents .todoUl #List::-webkit-scrollbar {

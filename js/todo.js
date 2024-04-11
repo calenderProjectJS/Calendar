@@ -1,3 +1,4 @@
+const $modalOverlay = document.querySelector('.modal-overlay');
 //========================체크 여부에 따라 수정, 삭제 이벤트======================
 function checkCheckbox() {
   // 모든 체크박스 요소 가져옴
@@ -60,6 +61,9 @@ function handleFixButtonClick(event) {
   // 체크된 체크박스가 2개 이상인 경우 alert 출력
   if (checkedCount !== 1) {
     alert("한 가지만 선택해주세요.");
+    $checkboxes.forEach(function (checkbox){
+      checkbox.checked = false;
+    });
     return;
   }
   $modalOverlay.classList.remove("hidden");
@@ -93,13 +97,13 @@ function handleDeleteButtonClick(event) {
     }
     // 모든 할 일 목록을 삭제했는지 확인하고, none 추가.
     //******************************이거 왜 안댐?********************/
-    const noneDiv = document.getElementById("none");
+    // const noneDiv = document.getElementById("none");
     const todoList = document.getElementById("List");
-    if (todoList.childElementCount === 0) {
-      noneDiv.style.display = "";
-    } else {
-      noneDiv.style.display = "none";
-    }
+    // if (todoList.childElementCount === 0) {
+    //   noneDiv.style.display = "none";
+    // } else {
+    //   noneDiv.style.display = "";
+    // }
   });
 
   // 체크박스 상태 업데이트
@@ -235,8 +239,8 @@ function addTodoToList(text) {
   todoList.appendChild(newTodoItem);
 
   // li 태그 추가된 후에는 #none 숨김
-  const noneDiv = document.getElementById("none");
-  noneDiv.style.display = "none";
+  // const noneDiv = document.getElementById("none");
+  // noneDiv.style.display = "none";
 
   // 모달 나갈때 삭제, 수정 버튼 비활성화
   const $checkboxes = document.querySelectorAll(".inputEl");
