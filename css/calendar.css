@@ -174,7 +174,7 @@ body {
   padding-top: 8px;
 }
 
-.date-container .date-box:hover {
+.date-container .date-box:not(:has(>.inactive)):hover {
   /* background: var(--GRAY100); */
   background: var(--BLUE100);
   border: 1px solid var(--BLUE300);
@@ -185,6 +185,8 @@ body {
   padding: 0 10px 0;
 
 }
+
+
 /* 오늘 날짜 도형 */
 .today-circle {
   width: 25px;
@@ -225,9 +227,9 @@ body {
   font-size: 0.9em;
   color: var(--GRAY700);
   transition: 300ms;
-  z-index: 2;
+  /* z-index: 2; */
 }
-.cal-list:hover {
+.cal-list:not(.inactive):hover {
   transform: scale(1.05);
   box-shadow: 1px 3px 5px 1px rgba(0, 0, 0, 0.3);
   z-index: 10;

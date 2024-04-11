@@ -1,5 +1,5 @@
 import { goToMonth } from "./calendar.js";
-// import { saveTodoList, loadTodoList } from "./localStorage.js";
+import { saveTodoList, loadTodoList } from "./localStorage.js";
 
 let todoList = [
   {
@@ -39,7 +39,7 @@ let todo = {
   repeat: 0,
 };
 
-// saveTodoList(todoList);
+
 
 // 할 일 만들기로 추가 기능
 // 만들기 버튼 누르면 모달 나타남
@@ -224,6 +224,8 @@ const renderTodoItems = (filteredViewTimeArr, dateBoxArr, todo) => {
 // ++ todoList 업데이트
 // todoList = loadTodoList();
 // console.log(todoList);
+
+saveTodoList(todoList);
 
 // 드롭다운 이전 달 버튼 클릭 이벤트 핸들러
 document

@@ -1,4 +1,6 @@
-import { renderRepeatToCalendarView, todoList } from "./calendar_todo.js";
+// import { renderRepeatToCalendarView, todoList } from "./calendar_todo.js";
+import { renderRepeatToCalendarView } from "./calendar_todo.js";
+import { loadTodoList } from "./localStorage.js";
 
 // 현재 기준 날짜 및 시간
 let dateNow = new Date();
@@ -8,6 +10,8 @@ const todayDate = dateNow.getDate();
 
 let viewYear = todayYear;
 let viewMonth = todayMonth;
+
+let todoList = loadTodoList();
 
 //=====함수 정의 =====//
 
