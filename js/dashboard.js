@@ -319,14 +319,12 @@ const dashboardEvent = () => {
 	document.querySelector('.go-today')?.parentElement.addEventListener('click', (e) => {
 		renderCalendarView(todayYear, todayMonth, e.target.closest(".monthly"));
 		renderRepeatToCalendarView(toDoList);
-	});
-	document.querySelector(".dropdown .date-container").addEventListener("click", (e) => {
-		getSelectedDate(e);
-	});
+	});	
 	document.querySelector(".weekly .date-container")?.addEventListener("click", (e) => {
 		renderTodoListBox(e.target.closest(".date-box"));
 	});
 	document.querySelector(".container-1 .todo-list")?.addEventListener("click", (e) => {
+		if (!e.target.closest(".list li")) return ;
 		const $li = e.target.closest(".list li");
 		const $span = $li.querySelector("span");
 		const $input = $li.querySelector("input");

@@ -1,6 +1,6 @@
 import { insert } from "./insert.js";
 import { renderCalendarView, todayYear, todayMonth, goToMonth } from "./dashboard.js";
-import { setReccurrenceOption } from "./calendar_todo.js";
+import { getSelectedDate, setReccurrenceOption } from "./calendar_todo.js";
 
 const modalEvent = () => {
 	/* modal event */
@@ -9,11 +9,11 @@ const modalEvent = () => {
 	const $modalContent = document.querySelector(".modal-content");
 	const closeModalButton = $modalContent.querySelector('.modal-close');
 
+	renderCalendarView(todayYear, todayMonth, document.querySelector(".dropdown .content-calendar"));
 	openModalButton.addEventListener('click', () => {
 		$modalOverlay.classList.remove('hidden');
 		$textArea.value = "";
 		$saveBtn.classList.remove("on");
-		renderCalendarView(todayYear, todayMonth, document.querySelector(".dropdown .content-calendar"));
 	});
 
 	closeModalButton.addEventListener('click', () => {
@@ -57,6 +57,10 @@ const modalEvent = () => {
 	outerContent.addEventListener("click", (e) => {
 		$contentCalendar.classList.remove("show");
 		$contentRepeat.classList.remove("show");
+	});
+
+	document.querySelector(".dropdown .date-container").addEventListener("click", (e) => {
+		getSelectedDate(e);
 	});
 
 	let repeatOpt = 0;
