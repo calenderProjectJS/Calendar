@@ -328,9 +328,13 @@ const dashboardEvent = () => {
 	});
 	document.querySelector(".container-1 .todo-list")?.addEventListener("click", (e) => {
 		const $li = e.target.closest(".list li");
-		if ($li) {
+		const $span = $li.querySelector("span");
+		const $input = $li.querySelector("input");
+		if (e.target === $input) {
 			$li.classList.toggle("checked");
-			$li.firstElementChild.checked = !$li.firstElementChild.checked;
+		} else if (e.target === $li || e.target === $span) {
+			$li.classList.toggle("checked");
+			$input.checked = !$input.checked;
 		}
 	});
 }
