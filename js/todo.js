@@ -179,7 +179,7 @@ const todoEvent = () => {
 			clearInputField();
 		} else {
 			// 체크된 체크박스가 없는 경우는 새로운 할 일 항목을 추가
-			addTodoToList({ inputText, date });
+			addTodoToList({ title: inputText, date });
 			$modalOverlay.classList.add("hidden");
 			// 입력란의 내용을 지우기
 			clearInputField();
@@ -227,39 +227,40 @@ const todoEvent = () => {
 			$modalOverlay.classList.remove("hidden"); // 모달 열기
 		}
 	});
+}
 
-	// ========================할 일 추가시 LI태그 만들어서 UL에 추가=======================
-	// 할 일 목록 추가 함수
-	function addTodoToList({ inputText: text, date }) {
-		// 새로운 할 일 목록 요소 생성
-		const newTodoItem = document.createElement("li");
-		newTodoItem.classList.add("todoLi");
-		newTodoItem.innerHTML = `
+// ========================할 일 추가시 LI태그 만들어서 UL에 추가=======================
+// 할 일 목록 추가 함수
+function addTodoToList(obj) {
+	// 새로운 할 일 목록 요소 생성
+	const time = obj.date ? obj.date : `${obj.time.year}. ${obj.time.month}. ${obj.time.date} ${days[obj.time.day]}`;
+	const newTodoItem = document.createElement("li");
+	newTodoItem.classList.add("todoLi");
+	newTodoItem.innerHTML = `
 			<label class="checkbox">
 				<div class="input_checkbox">
 					<input type="checkbox" class="input inputEl" />
 				</div>
-				<div class="todo_text">${text}</div>
+				<div class="todo_text">${obj.title}</div>
 			</label>
 			<div class="date">
-				<div class="dateText">${date}</div>
+				<div class="dateText">${time}</div>
 			</div>
 		`;
 
-		// List에 새로운 할 일 목록 추가
-		const todoList = document.getElementById("List");
-		todoList.appendChild(newTodoItem);
+	// List에 새로운 할 일 목록 추가
+	const todoList = document.getElementById("List");
+	todoList.appendChild(newTodoItem);
 
-		// li 태그 추가된 후에는 #none 숨김
-		// const noneDiv = document.getElementById("none");
-		// noneDiv.style.display = "none";
+	// li 태그 추가된 후에는 #none 숨김
+	// const noneDiv = document.getElementById("none");
+	// noneDiv.style.display = "none";
 
-		// 모달 나갈때 삭제, 수정 버튼 비활성화
-		const $checkboxes = document.querySelectorAll(".inputEl");
-		$checkboxes.forEach(function (checkbox) {
-			checkbox.addEventListener("change", checkCheckbox);
-		});
-	}
+	// 모달 나갈때 삭제, 수정 버튼 비활성화
+	const $checkboxes = document.querySelectorAll(".inputEl");
+	$checkboxes.forEach(function (checkbox) {
+		checkbox.addEventListener("change", checkCheckbox);
+	});
 }
 
-export { todoEvent };
+export { todoEvent, addTodoToList };
