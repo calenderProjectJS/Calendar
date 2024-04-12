@@ -109,6 +109,7 @@ const getSelectedDate = (e) => {
 // 3-2. 반복옵션에 따라 캘린더 뷰에 렌더하는 함수
 //      매개변수로 todoList 가져오기
 const renderRepeatToCalendarView = (todoList) => {
+	todoList = loadTodoList();
 	let $weeklyContainer = document.querySelector("#main-content .container-2 .weekly .date-container");
 	$weeklyContainer = $weeklyContainer ? $weeklyContainer : document.querySelector("#main-content .date-container");
 	if (!$weeklyContainer) return;
