@@ -77,25 +77,3 @@ $contentRepeat.addEventListener("click", (e) => {
 // 투두리스트 추가 수정 삭제 마다 render 해야 함
 // renderRepeatToCalendarView(todoList);
 
-/* save button */
-// const $saveBtn = document.querySelector(".wrapper-btn .save");
-// const $textArea = document.querySelector("textarea.txt-field");
-// $textArea.addEventListener("keyup", (e) => {
-//   if ($textArea.value) {
-//     $saveBtn.classList.add("on");
-//   } else {
-//     $saveBtn.classList.remove("on");
-//   }
-// });
-
-// $saveBtn.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   if ($saveBtn.classList.contains("on")) {
-//     insertCal({
-//       title: $textArea.value,
-//       time: $selectTime.firstElementChild.textContent,
-//       repeat: $selectRepeat.firstElementChild.textContent,
-//     });
-//     $modalOverlay.classList.add("hidden");
-//   }
-// });
