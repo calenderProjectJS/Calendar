@@ -1,4 +1,4 @@
-import { renderCalendarView,todayYear, todayMonth } from "./dashboard.js";
+import { renderCalendarView } from "./dashboard.js";
 import { days } from "./date_utils.js";
 
 let dateNow = new Date();
