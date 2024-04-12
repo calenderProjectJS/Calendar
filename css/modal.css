@@ -65,7 +65,8 @@ input {
   transform: translate(-50%, 0);
   border-radius: 10px;
   box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.08);
-  padding: 35px 25px 25px;
+  padding: 35px 30px 25px;
+  padding-right: 33px;
 }
 
 .modal-content .modal-close {
@@ -149,7 +150,7 @@ input {
 
 .modal-content .todo-save button.save {
   width: 80px;
-  height: 30px;
+  height: 33px;
   color: var(--GRAY500);
   background: var(--GRAY100);
 }

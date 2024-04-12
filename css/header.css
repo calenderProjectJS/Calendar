@@ -39,10 +39,9 @@ header .container h1.logo {
 	line-height: 25px;
 	background-color: white;
 	font-size: 20px;
-	padding-right: 30px;
+	padding-right: 20px;
 	display: flex;
 	justify-content: center;
-	/* border: 1px solid #000; */
 }
 
 header .container h1.logo i {
@@ -59,6 +58,7 @@ header .container .wrapper .date-wrapper {
 	display: flex;
 	width: 238px;
 	font-weight: 500;
+	margin-left: 30px;
 }
 
 header .container .wrapper .date-wrapper .today {
