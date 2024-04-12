@@ -54,7 +54,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* margin: 50px; */
+  /* margin-top: -10px; */
   color: var(--GRAY900);
   font-size: 14px;
   background-color: var(--BLUE100);
@@ -172,7 +172,14 @@ body {
   height: 130px;
   position: relative;
   padding-top: 8px;
+
+  /* overflow: show; */
+  /* overflow-y: auto; */
+  /* scrollbar-width: none; */
 }
+/* .date-container .date-box::-webkit-scrollbar {
+	display:none /* Chrome , Safari , Opera
+} */
 
 .date-container .date-box:not(:has(>.inactive)):hover {
   /* background: var(--GRAY100); */
@@ -227,7 +234,6 @@ body {
   font-size: 0.9em;
   color: var(--GRAY700);
   transition: 300ms;
-  /* z-index: 2; */
 }
 .cal-list:not(.inactive):hover {
   transform: scale(1.05);
