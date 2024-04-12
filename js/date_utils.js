@@ -5,7 +5,7 @@ const getDateInfoFromText = (input) => {
 		year: Number(time[0]),
 		month: Number(time[1]),
 		date: Number(time[2]),
-		day: days.indexOf(time[3]),
+		day: days.indexOf(time[3].trim()),
 	}
 }
 
