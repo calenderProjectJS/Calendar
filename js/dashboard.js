@@ -1,5 +1,5 @@
-import { toDoList } from "./data.js";
 import { days } from "./date_utils.js";
+import { loadTodoList } from "./localStorage.js";
 
 let dateNow = new Date();
 const todayYear = dateNow.getFullYear();
@@ -59,6 +59,8 @@ const renderTodoListTitle = (target, $today) => {
 }
 
 const renderTodoListBox = (target) => {
+	let toDoList = loadTodoList();
+	console.log(target);
 	const $mainContent = target.closest("#main-content");
 	const $todayList = $mainContent.querySelector(".todo-list .today .list");
 	const $tomorrowList = $mainContent.querySelector(".todo-list .tomorrow .list");
@@ -294,15 +296,13 @@ const renderWeeklyView = (e) => {
 	}
 };
 
-if (window.location.pathname === "/index.html") {
+const dashboardEvent = () => {
+	let toDoList = loadTodoList();
 	renderCalendarView(todayYear, todayMonth, document.querySelector(".container-1 .calendar"));
 	renderWeeklyView();
 	renderRepeatToCalendarView(toDoList);
-	renderTodoListBox(document.querySelector(".weekly .date-container .date-box .today-circle"));
-}
-
-const dashboardEvent = () => {
-	renderRepeatToCalendarView(toDoList);
+	renderTodoListBox(document.querySelector(".weekly .date-container .date-box .today-circle"));	
+	//renderRepeatToCalendarView(toDoList);
 	document.querySelector('.date-container').addEventListener('click', e => {
 		renderWeeklyView(e);
 		renderRepeatToCalendarView(toDoList);
