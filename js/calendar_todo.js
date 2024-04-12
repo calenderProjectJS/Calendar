@@ -1,6 +1,5 @@
 
-import { saveTodoList, loadTodoList } from "./localStorage.js";
-import { toDoList } from "./data.js";
+import { loadTodoList } from "./localStorage.js";
 import { days } from "./date_utils.js";
 
 // 현재 기준 날짜 및 시간
@@ -9,10 +8,6 @@ let dateNow = new Date();
 const todayYear = dateNow.getFullYear();
 const todayMonth = dateNow.getMonth();
 const todayDate = dateNow.getDate();
-
-if(loadTodoList(toDoList).length === 0) {
-  saveTodoList(toDoList);
-}
 
 //=========모달 기한 입력=========//
 

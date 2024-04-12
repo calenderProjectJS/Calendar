@@ -1,5 +1,6 @@
 import { insert } from "./insert.js";
-import { renderCalendarView, todayYear, todayMonth, goToMonth, renderTodoListBox } from "./dashboard.js";
+import { renderCalendarView, todayYear, todayMonth, goToMonth } from "./dashboard.js";
+import { setReccurrenceOption } from "./calendar_todo.js";
 
 const modalEvent = () => {
 	/* modal event */
@@ -58,6 +59,14 @@ const modalEvent = () => {
 		$contentRepeat.classList.remove("show");
 	});
 
+	let repeatOpt = 0;
+	$contentRepeat.addEventListener("click", (e) => {
+		// e.target 드롭다운 반복 옵션 반환 (0, 1, 2, 3)
+		console.log('드롭다운 반복 선택');
+		repeatOpt = Number(setReccurrenceOption(e.target));
+		console.log(repeatOpt);
+	});
+
 	/* save button */
 	const $saveBtn = document.querySelector(".wrapper-btn .save");
 	const $textArea = document.querySelector("textarea.txt-field");
@@ -75,7 +84,7 @@ const modalEvent = () => {
 			insert({
 				title: $textArea.value,
 				time: $selectTime.firstElementChild.textContent,
-				repeat: $selectRepeat.firstElementChild.textContent
+				repeat: repeatOpt
 			});
 			$modalOverlay.classList.add("hidden");
 		}
