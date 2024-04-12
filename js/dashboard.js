@@ -324,7 +324,14 @@ const dashboardEvent = () => {
 	});
 	document.querySelector(".weekly .date-container")?.addEventListener("click", (e) => {
 		renderTodoListBox(e.target.closest(".date-box"));
-	})
+	});
+	document.querySelector(".container-1 .todo-list")?.addEventListener("click", (e) => {
+		const $li = e.target.closest(".list li");
+		if ($li) {
+			$li.classList.toggle("checked");
+			$li.firstElementChild.checked = !$li.firstElementChild.checked;
+		}
+	});
 }
 
 export { dashboardEvent, renderRepeatToCalendarView, renderCalendarView, todayYear, todayMonth, goToMonth, renderTodoListBox };
