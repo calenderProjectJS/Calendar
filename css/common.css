@@ -29,16 +29,20 @@ input {
 
 /* color */
 :root {
-	--GRAY900: #191919;
-	--GRAY700: #666;
-	--GRAY500: #8E8E8E;
-	--GRAY300: #CCC;
-	--GRAY100: #EBEBEB;
-	--RED500: #E85E36;
+  --GRAY900: #191919;
+  --GRAY700: #666;
+  --GRAY500: #8E8E8E;
+  --GRAY300: #CCC;
+  --GRAY100: #EBEBEB;
+  --RED500: #E85E36;
+  --BLUE100: #fafaff;
+  --BLUE300: #ccccff;
+  --BLUE500: #43CBFF;
+  --VIOL500: #7367F0;
 }
 
 body {
 	/* font는 추후 상의 필요 */
 	font-family: "Roboto", "Noto Sans KR", sans-serif;
-
+	background: var(--BLUE100);
 }

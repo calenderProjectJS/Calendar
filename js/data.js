@@ -135,7 +135,7 @@ const toDoList = [
   {	
 		id: 8,
     title: "할일 4 매월",
-    time: { year: 2024, month: 3, date: 10, day: 3 },
+    time: { year: 2024, month: 3, date: 9, day: 2 },
     repeat: 3,
 		done: false,
     color: '#FCFFC4',
