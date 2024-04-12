@@ -174,8 +174,8 @@ body {
   padding-top: 8px;
 
   /* overflow: show; */
-  /* overflow-y: auto; */
-  /* scrollbar-width: none; */
+  overflow-y: hidden;
+  scrollbar-width: none;
 }
 .date-container .date-box::-webkit-scrollbar {
 	display:none /* Chrome , Safari , Opera */
