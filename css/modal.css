@@ -24,8 +24,9 @@ input {
 * {
   box-sizing: border-box;
 }
-
+/* 
 /* color */
+/*
 :root {
   --GRAY900: #191919;
   --GRAY700: #666;
@@ -33,11 +34,10 @@ input {
   --GRAY300: #ccc;
   --GRAY100: #ebebeb;
   --RED500: #e85e36;
-}
-body {
-  /* font는 추후 상의 필요 */
+} */
+/* body {
   font-family: "Roboto", "Noto Sans KR", sans-serif;
-}
+} */
 
 /* ====================== modal common */
 
@@ -155,8 +155,8 @@ body {
 }
 
 .modal-content .todo-save button.on {
-  background: #fee500;
-  color: #0a0a0a;
+  background: var(--VIOL500);
+  color: #fff;
   cursor: pointer;
 }
 
@@ -224,6 +224,12 @@ body {
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 3px;
+}
+#drop-content .monthly .header-calendar .nav-calendar a {
+  box-shadow: none;
+}
+#drop-content .monthly .header-calendar .nav-calendar a:hover {
+  background: transparent;
 }
 
 #drop-content .monthly .header-calendar .nav-calendar button {

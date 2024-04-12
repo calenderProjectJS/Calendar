@@ -1,19 +1,26 @@
 @import url("./common.css");
+@import url("./header.css");
+@import url("./modal.css");
 
 section.main_section {
   /* margin-top: 60px; */
-  margin-top: 60px;
-  padding-left: 120px;
+  margin-top: 20px;
+  padding-left: 80px;
 }
 
 section.main_section .main_contents {
   width: 1200px;
   margin-left: 20px;
   margin-right: 20px;
-  margin-top: 40px;
+  margin-top: 20px;
+  border: 40px solid #fff;
+  border-top: 30px solid #fff;
+  border-radius: 8px;
+  background: #fff;
 }
 section.main_section .main_contents .todoUl .todoLi {
   display: flex;
+  /* border: 1px solid #000; */
 }
 section.main_section .main_contents .todoUl .todoLi .checkbox {
   display: flex;
@@ -42,7 +49,7 @@ section.main_section .main_contents .todoUl .todoLi .date {
 }
 #text_todoList {
   font-weight: bolder;
-  font-size: 40px;
+  font-size: 30px;
 }
 #main-content > section > div.main_contents > ul > li:nth-child(1) > label {
   font-weight: bolder;
@@ -81,12 +88,18 @@ section.main_section .main_contents .todoUl .addIcon {
   /* text-align: center; */
 }
 section.main_section .main_contents .todoUl .addIcon .addIconEl {
-  border: solid red 1px;
+  border: 1px solid var(--GRAY300);
   border-radius: 25px;
   width: 600px;
   /* margin: 0 auto; */
   /* margin-top: 20px; */
   display: flex;
+  background: #fff;
+  transition: 200ms;
+}
+section.main_section .main_contents .todoUl .addIcon .addIconEl:hover {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--VIOL500);
 }
 
 section.main_section .main_contents .todoUl .addIcon .addIconEl .fa-solid {
@@ -131,20 +144,37 @@ section.main_section
   .addIconEl
   .btn-wrapper
   .btn_box {
-  border: solid gray 1px;
+  border: solid var(--GRAY300) 1px;
   border-radius: 25%;
   width: 60px;
   height: 50px;
   line-height: 50px;
   margin-right: 15px;
+  transition: 300ms;
+}
+section.main_section
+  .main_contents
+  .todoUl
+  .addIcon
+  .addIconEl
+  .btn-wrapper
+  .btn_box:hover {
+    background: var(--VIOL500);
+    color: #fff;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.1);
 }
 section.main_section .main_contents .todoUl .footer_list {
   margin-top: 40px;
 }
 section.main_section .main_contents .todoUl .addIcon .addIconEl .btn-wrapper .color {
-  background-color: lightgrey; 
-  color: white; 
+  background-color: #fff; 
+  color: var(--GRAY700); 
 }
+
+.submit_btn:hover i {
+  color: var(--VIOL500);
+}
+
 #none {
   color: grey;
   text-align: center;

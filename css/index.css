@@ -176,8 +176,13 @@ section#main-content
 
 section#main-content .container-2 {
 }
+.date-container .date-box:not(:has(>.inactive)):hover {
+  /* background: var(--GRAY100); */
+  background: var(--BLUE100);
+  border: 1px solid var(--BLUE300);
+}
 
-/* ====== 캘린더 헤더 스타일 ====== */
+/* ====== 메인 캘린더 헤더 스타일 ====== */
 .header-calendar {
   display: flex;
   justify-content: space-between;
@@ -235,16 +240,15 @@ section#main-content .container-2 {
   padding: 1px 0 0;
 }
 
-/* ====== 메인 페이지 위클리 스타일 ====== */
+/* ====== 메인 위클리 스타일 ====== */
 
 
 section#main-content .container-2 .wrapper .weekly {
-  width: 1500px;
+  width: 1430px;
   display: flex;
   align-items: center;
   color: var(--GRAY900);
   font-size: 14px;
-  border: 1px solid violet;
 }
 
 .main-calendar {
@@ -296,26 +300,9 @@ section#main-content .container-2 .wrapper .weekly {
   padding-top: 8px;
 }
 
-.date-container .date-box:hover {
-  background: var(--BLUE100);
-}
-
 .date-container .date-box .date-text {
   /* font-size: 0.9em; */
   padding: 0 10px 0;
 }
-/* 오늘 날짜 도형 */
-/* .today-circle {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: var(--GRAY900);
-  border-radius: 50%;
-  position: absolute;
-  left: 1px;
-  top: 1px;
-  color: #fff;
-} */
+
+

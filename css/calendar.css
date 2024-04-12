@@ -177,9 +177,9 @@ body {
   /* overflow-y: auto; */
   /* scrollbar-width: none; */
 }
-/* .date-container .date-box::-webkit-scrollbar {
-	display:none /* Chrome , Safari , Opera
-} */
+.date-container .date-box::-webkit-scrollbar {
+	display:none /* Chrome , Safari , Opera */
+}
 
 .date-container .date-box:not(:has(>.inactive)):hover {
   /* background: var(--GRAY100); */
@@ -218,7 +218,7 @@ body {
 
 /* 캘린더 할일 리스트 스타일 */
 .date-todo {
-  margin-top: 20px;
+  margin-top: 15px;
   position: relative;
 }
 .cal-list {

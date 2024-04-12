@@ -24,7 +24,8 @@ input {
 
 /* common */
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Roboto", "Noto Sans KR", sans-serif;
 }
 
 /* color */
@@ -42,7 +43,5 @@ input {
 }
 
 body {
-	/* font는 추후 상의 필요 */
-	font-family: "Roboto", "Noto Sans KR", sans-serif;
 	background: var(--BLUE100);
 }
