@@ -1,5 +1,5 @@
 import { toDoList, initTimeStop, REPEAT } from "./data.js";
-import { renderRepeatToCalendarView } from "./dashboard.js";
+import { renderRepeatToCalendarView, renderTodoListBox } from "./dashboard.js";
 import * as util from "./date_utils.js"
 
 
@@ -10,7 +10,6 @@ const todayDate = dateNow.getDate();
 const todayDay = dateNow.getDay();
 
 const insert = (obj) => {
-	console.log(obj);
 	const time = obj.time !== "기한 없음" ? util.getDateInfoFromText(obj.time) : {
 		year: todayYear,
 		month: todayMonth,
@@ -26,6 +25,10 @@ const insert = (obj) => {
 		timeStop: initTimeStop,
 	});
 	renderRepeatToCalendarView(toDoList);
+	if (window.location.pathname === "/index.html") {
+		renderTodoListBox(document.querySelector(".weekly .date-container .date-box .today-circle"));
+
+	}
 }
 
 export { insert };

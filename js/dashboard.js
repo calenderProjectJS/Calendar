@@ -9,6 +9,74 @@ const todayDate = dateNow.getDate();
 let viewYear = todayYear;
 let viewMonth = todayMonth;
 
+const form = (obj) => `
+						<input type="checkbox" name="" id="">
+						<span>${obj.txt}</span> `;
+
+
+const makeTag = (txt) => {
+	const $new = document.createElement("li");
+	$new.innerHTML = form({ txt });
+	return $new;
+};
+
+/* weekly dateBox -> monthly two dateBox */
+const getTwoDatesInMonthly = ($dateBox) => {
+	let dateBoxArr = [...document.querySelector("#main-content .date-container").children];
+	const $today = dateBoxArr.find(ele => ele.dataset.dateIdx === $dateBox.dataset.dateIdx);
+	return [$today, $today.nextElementSibling];
+}
+
+/* 선택된 날짜와 다음 날짜의 할일 구하기 */
+const getTodoSelectedDateBox = (todoList, $dateBox) => {
+	const dateBoxArr = getTwoDatesInMonthly($dateBox);
+	const viewTimeArr = generateViewTimeArray(dateBoxArr);
+	const obj = {};
+	todoList.forEach((todo) => {
+		const filteredViewTimeArr = filterViewTimeArray(viewTimeArr, todo);
+		filteredViewTimeArr.forEach(e => {
+			if (obj[e.dateBoxId]) {
+				obj[e.dateBoxId].push(todo.title);
+			} else {
+				obj[e.dateBoxId]= [todo.title];
+			}
+		});
+	});
+	return obj;
+};
+
+const renderTodoListTitle = (target, $today) => {
+	const $title = target.closest("#main-content").querySelectorAll(".todo-list .title span");
+	$title[0].textContent = "오늘";
+	$title[1].textContent = "내일";
+	if (!target.matches(".today-circle")) {
+		const twoDates = getTwoDatesInMonthly($today);
+		const span = getDateInfoFromSpan(twoDates[0].querySelector("span"));
+		const span2 = getDateInfoFromSpan(twoDates[1].querySelector("span"));
+		$title[0].textContent = ` ${span.date}일(${days[span.day][0]})`;
+		$title[1].textContent = ` ${span2.date}일(${days[span2.day][0]})`;
+	}
+}
+
+const renderTodoListBox = (target) => {
+	const $mainContent = target.closest("#main-content");
+	const $todayList = $mainContent.querySelector(".todo-list .today .list");
+	const $tomorrowList = $mainContent.querySelector(".todo-list .tomorrow .list");
+	const $today = target.closest(".date-box");
+	const obj = getTodoSelectedDateBox(toDoList, $today);
+
+	$todayList.innerHTML = "";
+	$tomorrowList.innerHTML = "";
+	for (const key in obj) {
+		if (key === $today.dataset.dateIdx) {
+			obj[key].forEach(e => $todayList.appendChild(makeTag(e)));
+		} else {
+			obj[key].forEach(e => $tomorrowList.appendChild(makeTag(e)));
+		}
+	}
+	renderTodoListTitle(target, $today);
+};
+
 const getDateInfoFromSpan = ($span) => {
 	const yearMonthText = $span.dataset.date; // "2024-4"
 	const selectedYear = +yearMonthText.split("-")[0]; // 2024
@@ -70,16 +138,15 @@ const filterViewTimeArray = (viewTimeArr, todo) => {
 	// todo의 날짜 구하기
 	const month = (todo.time.month > 1) ? todo.time.month - 1 : 0;
 	const todoTime = new Date(todo.time.year, month, todo.time.date, 0, 0, 0, 0);
-
-	return viewTimeArr.filter(({ dateObj: viewTime }, dateBoxId) => {
+	return viewTimeArr.filter(({ dateObj: viewTime, dateBoxId }) => {
 		let option = todo.repeat;
-		// 매일 반복은 todoTime 이상의 viewTime만 필터링
+// 매일 반복은 todoTime 이상의 viewTime만 필터링
 		if (option === 1) return viewTime.getTime() >= todoTime.getTime();
-		// 매주 반복은 todoTime 이상의 viewTime이면서 요일이 같을 때만 필터링
+// 매주 반복은 todoTime 이상의 viewTime이면서 요일이 같을 때만 필터링
 		else if (option === 2) return viewTime.getTime() >= todoTime.getTime() && todo.time.day === dateBoxId % 7;
-		// 매월 반복은 todoTime 이상의 viewTime이면서 날짜가 같을 때만 필터링
+// 매월 반복은 todoTime 이상의 viewTime이면서 날짜가 같을 때만 필터링
 		else if (option === 3) return viewTime.getTime() >= todoTime && todo.time.date === viewTime.getDate();
-		// 반복 안함은 todo 날짜만 필터링
+// 반복 안함은 todo 날짜만 필터링
 		else if (option === 0) return viewTime.getTime() === todoTime.getTime();
 		else return false;
 	});
@@ -174,6 +241,7 @@ const generateDatesView = (year, month) => {
 const renderCalendarView = (year = todayYear, month = todayMonth, parent) => {
 	viewYear = year;
 	viewMonth = month;
+	if (!parent) return;
 	parent.querySelector(".year-month").textContent = `${viewYear}년 ${viewMonth + 1}월`;
 	const datesView = generateDatesView(viewYear, viewMonth);
 	const tagDates = datesView.map((date, i) => {
@@ -201,7 +269,7 @@ const goToMonth = (direction, parent) => {
 	if (viewMonth === 0 && direction === 1) {
 		viewYear++;
 	}
-	renderCalendarView(viewYear, viewMonth, parent); // 달력 다시 렌더링
+	renderCalendarView(viewYear, viewMonth, parent);
 };
 
 const renderWeeklyView = (e) => {
@@ -226,9 +294,14 @@ const renderWeeklyView = (e) => {
 	}
 };
 
-const dashboardEvent = () => {
+if (window.location.pathname === "/index.html") {
 	renderCalendarView(todayYear, todayMonth, document.querySelector(".container-1 .calendar"));
 	renderWeeklyView();
+	renderRepeatToCalendarView(toDoList);
+	renderTodoListBox(document.querySelector(".weekly .date-container .date-box .today-circle"));
+}
+
+const dashboardEvent = () => {
 	renderRepeatToCalendarView(toDoList);
 	document.querySelector('.date-container').addEventListener('click', e => {
 		renderWeeklyView(e);
@@ -242,13 +315,16 @@ const dashboardEvent = () => {
 		goToMonth(1, e.target.closest(".monthly"));
 		renderRepeatToCalendarView(toDoList);
 	});
-	document.querySelector('.go-today').parentElement.addEventListener('click', (e) => {
+	document.querySelector('.go-today')?.parentElement.addEventListener('click', (e) => {
 		renderCalendarView(todayYear, todayMonth, e.target.closest(".monthly"));
 		renderRepeatToCalendarView(toDoList);
-	});	
+	});
 	document.querySelector(".dropdown .date-container").addEventListener("click", (e) => {
 		getSelectedDate(e);
 	});
+	document.querySelector(".weekly .date-container")?.addEventListener("click", (e) => {
+		renderTodoListBox(e.target.closest(".date-box"));
+	})
 }
 
-export { dashboardEvent, renderRepeatToCalendarView, renderCalendarView, todayYear, todayMonth, goToMonth };
+export { dashboardEvent, renderRepeatToCalendarView, renderCalendarView, todayYear, todayMonth, goToMonth, renderTodoListBox };
