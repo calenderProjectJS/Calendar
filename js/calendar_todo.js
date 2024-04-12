@@ -10,7 +10,7 @@ const todayYear = dateNow.getFullYear();
 const todayMonth = dateNow.getMonth();
 const todayDate = dateNow.getDate();
 
-if(!loadTodoList(toDoList)) {
+if(loadTodoList(toDoList).length === 0) {
   saveTodoList(toDoList);
 }
 
