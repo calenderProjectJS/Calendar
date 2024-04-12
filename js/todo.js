@@ -1,4 +1,12 @@
 import { renderCalendarView,todayYear, todayMonth } from "./dashboard.js";
+import { days } from "./date_utils.js";
+
+let dateNow = new Date();
+const todayYear = dateNow.getFullYear();
+const todayMonth = dateNow.getMonth();
+const todayDate = dateNow.getDate();
+const todayDay = dateNow.getDay();
+
 const $modalOverlay = document.querySelector('.modal-overlay');
 //========================체크 여부에 따라 수정, 삭제 이벤트======================
 function checkCheckbox() {
@@ -150,11 +158,11 @@ saveButton.addEventListener("click", function (event) {
   event.preventDefault(); // 기본 동작 방지
 
   // 할 일 입력란의 내용 가져오기
-  const inputText = document.querySelector(".txt-field").value;
-
-  // 수정한 할 일 목록의 체크박스 가져옴
+	const $form = document.querySelector(".todo-save");
+  const inputText = $form.querySelector(".txt-field").value;
   const checkedCheckbox = document.querySelector(".inputEl:checked");
-
+	let date = $form.querySelector(".time-btn").textContent;
+	date = date === "기한 없음" ? `${todayYear}. ${todayMonth + 1}. ${todayDate}. ${days[todayDay]}` : date;
   if (checkedCheckbox) {
     // 체크된 체크박스가 있는 경우에만 실행
     const todoTextElement = checkedCheckbox
@@ -170,7 +178,7 @@ saveButton.addEventListener("click", function (event) {
     clearInputField();
   } else {
     // 체크된 체크박스가 없는 경우는 새로운 할 일 항목을 추가
-    addTodoToList(inputText);
+    addTodoToList({inputText, date});
     $modalOverlay.classList.add("hidden");
     // 입력란의 내용을 지우기
     clearInputField();
@@ -220,7 +228,7 @@ inputField.addEventListener("keypress", function (event) {
 
 // ========================할 일 추가시 LI태그 만들어서 UL에 추가=======================
 // 할 일 목록 추가 함수
-function addTodoToList(text) {
+function addTodoToList({inputText: text, date}) {
   // 새로운 할 일 목록 요소 생성
   const newTodoItem = document.createElement("li");
   newTodoItem.classList.add("todoLi");
@@ -232,7 +240,7 @@ function addTodoToList(text) {
       <div class="todo_text">${text}</div>
     </label>
     <div class="date">
-      <div class="dateText">2024.11.11</div>
+      <div class="dateText">${date}</div>
     </div>
   `;
 
