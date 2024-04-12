@@ -1,5 +1,5 @@
 import { insert } from "./insert.js";
-import { renderCalendarView, todayYear, todayMonth, goToMonth } from "./dashboard.js";
+import { renderCalendarView, todayYear, todayMonth, goToMonth, renderTodoListBox } from "./dashboard.js";
 
 const modalEvent = () => {
 	/* modal event */

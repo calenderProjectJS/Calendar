@@ -11,8 +11,8 @@
 	<script type="module" src="../js/calendar.js" defer></script>
 	<script type="module" src="../js/calendar_todo.js" defer></script>
 	<script type="module" src="../js/localStorage.js" defer></script>
-	<script type="module" src="../js/modal.js"></script>
 	<script type="module" src="../js/app_cal.js"></script>
+	<script type="module" src="../js/modal.js"></script>
 	<script type="module" src="../js/app.js" defer></script>
 </head>
 
@@ -40,6 +40,10 @@
 	</header>
 	<section id="main">
 		<section id="side">
+			<div class="user">
+				<div class="profile-box"></div>
+				<span>아바라</span>
+			</div>
 			<nav class="menu">
 				<ul>
 					<li><a href="../index.html">홈</a></li>
@@ -170,9 +174,10 @@
 					<div class="dropdown select-repeat">
 						<button class="btn repeat-btn">반복 안함</button>
 						<div id="drop-content" class="content-repeat">
-							<a href='#' class="repeat-option repeat-daily">매일</a>
-							<a href='#' class="repeat-option repeat-weekly">매주</a>
-							<a href='#' class="repeat-option repeat-monthly">매월</a>
+							<a href='#' class="repeat-option">반복 안함</a>
+							<a href='#' class="repeat-option">매일</a>
+							<a href='#' class="repeat-option">매주</a>
+							<a href='#' class="repeat-option">매월</a>
 							<!-- <a href='#'>Menu4</a>
 							<a href='#'>Menu5</a> -->
 						</div>
