@@ -1,3 +1,4 @@
+import { renderCalendarView,todayYear, todayMonth } from "./dashboard.js";
 const $modalOverlay = document.querySelector('.modal-overlay');
 //========================체크 여부에 따라 수정, 삭제 이벤트======================
 function checkCheckbox() {
@@ -130,6 +131,7 @@ submitBtn.addEventListener("click", (event) => {
   const inputText = inputField.value; // <input> 요소의 내용 복사
   const textarea = document.querySelector(".txt-field");
   textarea.value = inputText; // <textarea> 요소에 붙여넣기
+	renderCalendarView(todayYear, todayMonth, document.querySelector(".dropdown .content-calendar"));
 });
 
 // Enter 키 입력할 때도 동일한 효과
