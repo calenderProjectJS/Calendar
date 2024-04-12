@@ -13,15 +13,6 @@ const form = (obj) => `
 						<input type="checkbox" name="" id="">
 						<span>${obj.txt}</span> `;
 
-const extractTodoListTag = (target) => {
-	return [...target.querySelector("ul.date-todo").children].map(e => e.textContent);
-}
-
-const getTodoListFromDateBox = (target) => {
-	const $today = target;
-	const $tomorrow = $today.nextSibling ? $today.nextSibling : $today;
-	return { today: extractTodoListTag($today), tomorrow: extractTodoListTag($tomorrow) };
-};
 
 const makeTag = (txt) => {
 	const $new = document.createElement("li");
@@ -29,37 +20,61 @@ const makeTag = (txt) => {
 	return $new;
 };
 
-/* 
-	선택된 날짜와 다음 날짜의 할일 구하기
-*/
-const getTodoselectedDateBox = (todoList, $dateBox) => {
-	const dateBoxArr = [...document.querySelector("#main-content .date-container").children];
+/* weekly dateBox -> monthly two dateBox */
+const getTwoDatesInMonthly = ($dateBox) => {
+	let dateBoxArr = [...document.querySelector("#main-content .date-container").children];
+	const $today = dateBoxArr.find(ele => ele.dataset.dateIdx === $dateBox.dataset.dateIdx);
+	return [$today, $today.nextElementSibling];
+}
+
+/* 선택된 날짜와 다음 날짜의 할일 구하기 */
+const getTodoSelectedDateBox = (todoList, $dateBox) => {
+	const dateBoxArr = getTwoDatesInMonthly($dateBox);
 	const viewTimeArr = generateViewTimeArray(dateBoxArr);
-	dateBoxArr.forEach(ele => {
-		ele.querySelector(".date-todo").innerHTML = "";
-	});
+	const obj = {};
 	todoList.forEach((todo) => {
 		const filteredViewTimeArr = filterViewTimeArray(viewTimeArr, todo);
-		renderTodoItems(filteredViewTimeArr, dateBoxArr, todo);
+		filteredViewTimeArr.forEach(e => {
+			if (obj[e.dateBoxId]) {
+				obj[e.dateBoxId].push(todo.title);
+			} else {
+				obj[e.dateBoxId]= [todo.title];
+			}
+		});
 	});
+	return obj;
 };
 
-const renderTodoListBox = (target) => {
+const renderTodoListTitle = (target, $today) => {
+	const $title = target.closest("#main-content").querySelectorAll(".todo-list .title span");
+	$title[0].textContent = "오늘";
+	$title[1].textContent = "내일";
 	if (!target.matches(".today-circle")) {
-		const span = getDateInfoFromSpan(target.closest(".date-box").querySelector("span"));
-		const span2 = getDateInfoFromSpan(target.nextSibling.closest(".date-box").querySelector("span"));
-		const $title = target.closest("#main-content").querySelectorAll(".todo-list .title span");
+		const twoDates = getTwoDatesInMonthly($today);
+		const span = getDateInfoFromSpan(twoDates[0].querySelector("span"));
+		const span2 = getDateInfoFromSpan(twoDates[1].querySelector("span"));
 		$title[0].textContent = ` ${span.date}일(${days[span.day][0]})`;
 		$title[1].textContent = ` ${span2.date}일(${days[span2.day][0]})`;
 	}
-	const obj = getTodoListFromDateBox(target.closest(".date-box"));
+}
+
+const renderTodoListBox = (target) => {
 	const $mainContent = target.closest("#main-content");
-	const $today = $mainContent.querySelector(".todo-list .today .list");
-	const $tomorrow = $mainContent.querySelector(".todo-list .tomorrow .list");
-	$today.innerHTML = "";
-	$tomorrow.innerHTML = "";
-	obj.today.forEach(e => $today.appendChild(makeTag(e)));
-	obj.tomorrow.forEach(e => $tomorrow.appendChild(makeTag(e)));
+	const $todayList = $mainContent.querySelector(".todo-list .today .list");
+	const $tomorrowList = $mainContent.querySelector(".todo-list .tomorrow .list");
+	const $today = target.closest(".date-box");
+	const obj = getTodoSelectedDateBox(toDoList, $today);
+
+	$todayList.innerHTML = "";
+	$tomorrowList.innerHTML = "";
+	for (const key in obj) {
+		if (key === $today.dataset.dateIdx) {
+			obj[key].forEach(e => $todayList.appendChild(makeTag(e)));
+		} else {
+			obj[key].forEach(e => $tomorrowList.appendChild(makeTag(e)));
+		}
+	}
+	renderTodoListTitle(target, $today);
 };
 
 const getDateInfoFromSpan = ($span) => {
@@ -123,8 +138,7 @@ const filterViewTimeArray = (viewTimeArr, todo) => {
 	// todo의 날짜 구하기
 	const month = (todo.time.month > 1) ? todo.time.month - 1 : 0;
 	const todoTime = new Date(todo.time.year, month, todo.time.date, 0, 0, 0, 0);
-
-	return viewTimeArr.filter(({ dateObj: viewTime }, dateBoxId) => {
+	return viewTimeArr.filter(({ dateObj: viewTime, dateBoxId }) => {
 		let option = todo.repeat;
 // 매일 반복은 todoTime 이상의 viewTime만 필터링
 		if (option === 1) return viewTime.getTime() >= todoTime.getTime();

@@ -77,7 +77,6 @@ const modalEvent = () => {
 				time: $selectTime.firstElementChild.textContent,
 				repeat: $selectRepeat.firstElementChild.textContent
 			});
-			renderTodoListBox(document.querySelector(".weekly .date-container .date-box .today-circle"));
 			$modalOverlay.classList.add("hidden");
 		}
 	});
