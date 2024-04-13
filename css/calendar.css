@@ -173,7 +173,6 @@ body {
   position: relative;
   padding-top: 8px;
 
-  /* overflow: show; */
   overflow-y: hidden;
   scrollbar-width: none;
 }
@@ -234,10 +233,11 @@ body {
   font-size: 0.9em;
   color: var(--GRAY700);
   transition: 300ms;
+  white-space: nowrap;
 }
-.cal-list:not(.inactive):hover {
+.date-box:not(:has(.inactive)) .cal-list:hover {
   transform: scale(1.05);
-  box-shadow: 1px 3px 5px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 3px 5px 1px rgba(0, 0, 0, 0.2);
   z-index: 10;
 }
 
