@@ -1,5 +1,5 @@
-import { toDoList } from "./data.js";
 import { days } from "./date_utils.js";
+import { loadTodoList } from "./localStorage.js";
 
 let dateNow = new Date();
 const todayYear = dateNow.getFullYear();
@@ -59,6 +59,8 @@ const renderTodoListTitle = (target, $today) => {
 }
 
 const renderTodoListBox = (target) => {
+	let toDoList = loadTodoList();
+	console.log(target);
 	const $mainContent = target.closest("#main-content");
 	const $todayList = $mainContent.querySelector(".todo-list .today .list");
 	const $tomorrowList = $mainContent.querySelector(".todo-list .tomorrow .list");
@@ -107,6 +109,7 @@ const getSelectedDate = (e) => {
 // 3-2. 반복옵션에 따라 캘린더 뷰에 렌더하는 함수
 //      매개변수로 todoList 가져오기
 const renderRepeatToCalendarView = (todoList) => {
+	todoList = loadTodoList();
 	let $weeklyContainer = document.querySelector("#main-content .container-2 .weekly .date-container");
 	$weeklyContainer = $weeklyContainer ? $weeklyContainer : document.querySelector("#main-content .date-container");
 	if (!$weeklyContainer) return;
@@ -294,15 +297,13 @@ const renderWeeklyView = (e) => {
 	}
 };
 
-if (window.location.pathname === "/index.html") {
+const dashboardEvent = () => {
+	let toDoList = loadTodoList();
 	renderCalendarView(todayYear, todayMonth, document.querySelector(".container-1 .calendar"));
 	renderWeeklyView();
 	renderRepeatToCalendarView(toDoList);
-	renderTodoListBox(document.querySelector(".weekly .date-container .date-box .today-circle"));
-}
-
-const dashboardEvent = () => {
-	renderRepeatToCalendarView(toDoList);
+	renderTodoListBox(document.querySelector(".weekly .date-container .date-box .today-circle"));	
+	//renderRepeatToCalendarView(toDoList);
 	document.querySelector('.date-container').addEventListener('click', e => {
 		renderWeeklyView(e);
 		renderRepeatToCalendarView(toDoList);
@@ -318,18 +319,20 @@ const dashboardEvent = () => {
 	document.querySelector('.go-today')?.parentElement.addEventListener('click', (e) => {
 		renderCalendarView(todayYear, todayMonth, e.target.closest(".monthly"));
 		renderRepeatToCalendarView(toDoList);
-	});
-	document.querySelector(".dropdown .date-container").addEventListener("click", (e) => {
-		getSelectedDate(e);
-	});
+	});	
 	document.querySelector(".weekly .date-container")?.addEventListener("click", (e) => {
 		renderTodoListBox(e.target.closest(".date-box"));
 	});
 	document.querySelector(".container-1 .todo-list")?.addEventListener("click", (e) => {
+		if (!e.target.closest(".list li")) return ;
 		const $li = e.target.closest(".list li");
-		if ($li) {
+		const $span = $li.querySelector("span");
+		const $input = $li.querySelector("input");
+		if (e.target === $input) {
 			$li.classList.toggle("checked");
-			$li.firstElementChild.checked = !$li.firstElementChild.checked;
+		} else if (e.target === $li || e.target === $span) {
+			$li.classList.toggle("checked");
+			$input.checked = !$input.checked;
 		}
 	});
 }
