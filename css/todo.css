@@ -21,6 +21,12 @@ section.main_section .main_contents {
 section.main_section .main_contents .todoUl .todoLi {
   display: flex;
   /* border: 1px solid #000; */
+  padding: 15px 0;
+}
+section.main_section .main_contents .todoUl #List .todoLi:hover {
+  border-bottom: 1px solid var(--GRAY100);
+  border-radius: 10px;
+  background: var(--BLUE100);
 }
 section.main_section .main_contents .todoUl .todoLi .checkbox {
   display: flex;
@@ -29,16 +35,12 @@ section.main_section .main_contents .todoUl .todoLi .checkbox .input_checkbox {
   /* border: solid red 1px; */
   width: 80px;
   text-align: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
 }
 section.main_section .main_contents .todoUl .todoLi .checkbox .todo_text {
   /* border: solid violet 1px; */
   width: 800px;
   margin-left: 50px;
   text-align: left;
-  padding-top: 20px;
-  padding-bottom: 20px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -47,8 +49,6 @@ section.main_section .main_contents .todoUl .todoLi .date {
   /* border: solid greenyellow 1px; */
   width: 188px;
   text-align: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
 }
 #text_todoList {
   font-weight: bolder;
