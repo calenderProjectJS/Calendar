@@ -1,6 +1,4 @@
-
 import { loadTodoList } from "./localStorage.js";
-
 
 // 현재 기준 날짜 및 시간
 let dateNow = new Date();
@@ -11,8 +9,6 @@ const todayDate = dateNow.getDate();
 
 let viewYear = todayYear;
 let viewMonth = todayMonth;
-
-
 
 //=====함수 정의 =====//
 
@@ -56,7 +52,6 @@ const addTodayCircle = (dates, ele) => {
   }
 };
 const generateDatesView = (year, month) => {
-
   const prevLast = new Date(year, month, 0);
   const currLast = new Date(year, month + 1, 0);
 
@@ -64,38 +59,45 @@ const generateDatesView = (year, month) => {
   const prevLastDay = prevLast.getDay();
   const currLastDate = currLast.getDate();
 
-  // 이번 달 1월이 아니면 그대로, 1월이면 연도-1년 12월
-  const prevDates = Array.from({ length: prevLastDay + 1 }, (_, index) => ({
-    year: month !== 0 ? year : year - 1,
-    month: month !== 0 ? month : month + 12,
-    date: prevLastDate - prevLastDay + index,
-    currentMonth: false,
-  }));
-  const currDates = Array.from({ length: currLastDate }, (_, index) => ({
-    year: year,
-    month: month + 1,
-    date: index + 1,
-    currentMonth: true,
-  }));
-  // 이번 달 12월이 아니면 그대로, 12월이면 연도+1년 1월
+  const prevDates = Array.from({ length: prevLastDay + 1 }, (_, index) => {
+    const prevDate = new Date(year, month - 1, prevLastDate - prevLastDay + index);
+    return {
+      year: prevDate.getFullYear(),
+      month: prevDate.getMonth() + 1,
+      date: prevDate.getDate(),
+      currentMonth: false,
+    };
+  });
+  const currDates = Array.from({ length: currLastDate }, (_, index) => {
+    const currDate = new Date(year, month, index + 1);
+    return {
+      year: currDate.getFullYear(),
+      month: currDate.getMonth() + 1,
+      date: index + 1,
+      currentMonth: true,
+    };
+  });
   const nextDates = Array.from(
     { length: 42 - prevDates.length - currDates.length },
-    (_, index) => ({
-      year: month + 1 !== 12 ? year : year + 1,
-      month: month + 1 !== 12 ? month + 2 : month + 2 - 12,
-      date: index + 1,
-      currentMonth: false,
-    })
-  );
+    (_, index) => {
+      const nextDate = new Date(year, month + 1, index + 1);
+      return {
+        year: nextDate.getFullYear(),
+        month: nextDate.getMonth() + 1,
+        date: index + 1,
+        currentMonth: false,
+      };
+  });
   return [...prevDates, ...currDates, ...nextDates];
 };
-
 
 const renderCalendarView = (year = todayYear, month = todayMonth, parent) => {
   viewYear = year;
   viewMonth = month;
 
-  parent.querySelector(".year-month").textContent = `${viewYear}년 ${viewMonth + 1}월`;
+  parent.querySelector(".year-month").textContent = `${viewYear}년 ${
+    viewMonth + 1
+  }월`;
 
   const datesView = generateDatesView(viewYear, viewMonth);
 
@@ -150,9 +152,9 @@ const renderWeeklyView = (e) => {
     tagDatesWeek.push($selectedCalendar.children[i].outerHTML);
   }
 
-  const $weekly = document.querySelector('.weekly');
+  const $weekly = document.querySelector(".weekly");
   if ($weekly) {
-    const $weeklyDateContainer = $weekly.querySelector('.date-container');
+    const $weeklyDateContainer = $weekly.querySelector(".date-container");
     $weeklyDateContainer.innerHTML = tagDatesWeek.join("");
   }
 };
