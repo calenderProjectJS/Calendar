@@ -209,6 +209,7 @@ body {
   top: 1px;
   color: #fff;
   box-shadow: 1px 1px 2px 1px #d1d3df;
+  cursor: pointer;
 }
 /* 이전, 다음 달은 비활성화 */
 .inactive {
@@ -232,12 +233,13 @@ body {
   font-weight: 500;
   font-size: 0.9em;
   color: var(--GRAY700);
-  transition: 300ms;
+  transition: 500ms;
   white-space: nowrap;
+  cursor: pointer;
 }
 .date-box:not(:has(.inactive)) .cal-list:hover {
   transform: scale(1.05);
-  box-shadow: 1px 3px 5px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 3px 5px 1px rgba(0, 0, 0, 0.3);
   z-index: 10;
 }
 
