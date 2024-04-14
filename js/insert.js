@@ -1,13 +1,21 @@
 import { renderRepeatToCalendarView, renderTodoListBox } from "./dashboard.js";
 import * as util from "./date_utils.js"
 import { saveTodoList, loadTodoList } from "./localStorage.js";
-import { colors } from "./data.js";
 
 let dateNow = new Date();
 const todayYear = dateNow.getFullYear();
 const todayMonth = dateNow.getMonth() + 1;
 const todayDate = dateNow.getDate();
 const todayDay = dateNow.getDay();
+
+const colors = () => {
+	let r = Math.floor((Math.random() * (256 - 170)) + 170);
+	let g = Math.floor((Math.random() * (256 - 170)) + 170);
+	let b = Math.floor((Math.random() * (256 - 170)) + 170);
+	while (Math.abs(r - g) < 10) g = Math.floor((Math.random() * (256 - 170)) + 170);
+	while (Math.abs(g - b) < 10) b = Math.floor((Math.random() * (256 - 170)) + 170);
+	return `rgb(${r}, ${g}, ${b})`;
+}
 
 const insert = (obj) => {
 	let todoList = loadTodoList();
@@ -23,7 +31,7 @@ const insert = (obj) => {
 		time,
 		repeat : obj.repeat,
 		done: false,
-		color: colors[Math.floor(Math.random() * (colors.length))],
+		color: colors(),
 	});
 	saveTodoList(todoList);
 	renderRepeatToCalendarView(todoList);
