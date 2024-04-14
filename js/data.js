@@ -54,6 +54,8 @@ const initTimeStop = {
 	endTime: initTime
 }
 
+const colors = ['#d8fdb3', '#fde2b3', '#FCFFC4', '#fed4d2', '#DBF4FF', '#eff6ee', '#f8dbfa', '#A9FDE9'];
+
 const toDoList = [
 	{
 		id: 1,
@@ -153,6 +155,6 @@ const toDoList = [
   },
 ];
 
-export { toDoList, REPEAT, initTimeStop };
+export { toDoList, REPEAT, initTimeStop, colors };
 
 

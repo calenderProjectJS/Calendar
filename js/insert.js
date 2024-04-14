@@ -1,6 +1,7 @@
 import { renderRepeatToCalendarView, renderTodoListBox } from "./dashboard.js";
 import * as util from "./date_utils.js"
 import { saveTodoList, loadTodoList } from "./localStorage.js";
+import { colors } from "./data.js";
 
 let dateNow = new Date();
 const todayYear = dateNow.getFullYear();
@@ -22,6 +23,7 @@ const insert = (obj) => {
 		time,
 		repeat : obj.repeat,
 		done: false,
+		color: colors[Math.floor(Math.random() * (colors.length))],
 	});
 	saveTodoList(todoList);
 	renderRepeatToCalendarView(todoList);
