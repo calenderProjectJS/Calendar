@@ -125,7 +125,6 @@ header .container .wrapper .setting-wrapper {
 #main section#side .menu ul {
 	display: flex;
 	flex-direction: column;
-	padding-left: 68px;
 	color: var(--GRAY700);
 	/* align-items: center; */
 	/* border: 1px solid #000; */
@@ -138,10 +137,18 @@ header .container .wrapper .setting-wrapper {
 	padding: 10px;
 	cursor: pointer;
 	transition: 300ms;
+	display: flex;
 }
 #main section#side .menu ul li:hover {
 	color: var(--VIOL500);
 	font-weight: 500;
+}
+#main section#side .menu ul li a{
+	display: block;
+	width: 100%;
+}
+#main section#side .menu ul li a i {
+	padding-left: 68px;
 }
 
 

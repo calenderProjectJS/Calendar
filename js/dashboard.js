@@ -196,6 +196,12 @@ const addTodayCircle = (dates, ele) => {
 			`div[data-date-idx="${todayIndex}"]`
 		).firstElementChild;
 
+		if(ele.closest('.select-time')) {
+			$todaySpan.parentElement.style.background = "url(../ellipse1.png) center/contain no-repeat";
+			$todaySpan.style.color = "#fff";
+			return;
+		}
+
 		const textColor = window.getComputedStyle($todaySpan).color;
 
 		const $todayCircle = document.createElement("div");
