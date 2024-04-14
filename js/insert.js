@@ -25,8 +25,8 @@ const insert = (obj) => {
 	});
 	saveTodoList(todoList);
 	renderRepeatToCalendarView(todoList);
-	if (window.location.pathname === "/index.html") {
-		renderTodoListBox(document.querySelector(".weekly .date-container .date-box"));
+	if (window.location.pathname === "/index.html" || window.location.pathname === "/Calendar/") {
+		renderTodoListBox(document.querySelector(`.weekly .date-container [data-date-idx="${time.date}"]`));
 	}
 }
 
