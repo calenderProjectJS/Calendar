@@ -1,4 +1,4 @@
-import { loadTodoList } from "./data/localStorage.js";
+import { loadTodoList } from "../data/localStorage.js";
 
 // 현재 기준 날짜 및 시간
 let dateNow = new Date();

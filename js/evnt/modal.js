@@ -1,6 +1,6 @@
-import { insert } from "./data/insert.js";
+import { insert } from "../data/insert.js";
 import { renderCalendarView, todayYear, todayMonth, goToMonth } from "./dashboard.js";
-import { getSelectedDate, setReccurrenceOption } from "./calendar_todo.js";
+import { getSelectedDate, setReccurrenceOption } from "../module/calendar_todo.js";
 
 const modalEvent = () => {
 	/* modal event */

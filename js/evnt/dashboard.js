@@ -1,5 +1,5 @@
-import { days, titleMonth } from "./utils.js";
-import { loadTodoList } from "./data/localStorage.js";
+import { days, titleMonth } from "../utils.js";
+import { loadTodoList } from "../data/localStorage.js";
 
 let dateNow = new Date();
 const todayYear = dateNow.getFullYear();

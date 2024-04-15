@@ -1,11 +1,11 @@
-import { goToMonth, renderWeeklyView, renderCalendarView } from "./calendar.js";
+import { goToMonth, renderWeeklyView, renderCalendarView } from "../module/calendar.js";
 import {
 	getSelectedDate,
 	setReccurrenceOption,
 	renderRepeatToCalendarView,
-} from "./calendar_todo.js";
-import { saveTodoList, loadTodoList } from "./data/localStorage.js";
-import { titleMonth } from "./utils.js";
+} from "../module/calendar_todo.js";
+import { saveTodoList, loadTodoList } from "../data/localStorage.js";
+import { titleMonth } from "../utils.js";
 
 // 현재 기준 날짜 및 시간
 let dateNow = new Date();

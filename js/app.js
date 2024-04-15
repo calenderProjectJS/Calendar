@@ -1,12 +1,11 @@
-import modalEvent from "./modal.js";
-import getheaderToday from "./header.js";
-import calenderEvent from "./app_cal.js";
-import { dashboardEvent } from "./dashboard.js";
+import modalEvent from "./evnt/modal.js";
+import calenderEvent from "./evnt/app_cal.js";
+import { dashboardEvent } from "./evnt/dashboard.js";
 import { loadTodoList, saveTodoList } from "./data/localStorage.js";
 import { toDoList } from "./data/data.js";
-import { todoEvent } from "./todo.js";
-import select from "./data/data_controller.js";
-import { titleMonth } from "./utils.js";
+import { todoEvent } from "./evnt/todo.js";
+import select from "./data/controller.js";
+import { titleMonth, getheaderToday } from "./utils.js";
 
 if (loadTodoList().length === 0) {
 	saveTodoList(toDoList);

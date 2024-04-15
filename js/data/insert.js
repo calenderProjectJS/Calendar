@@ -1,4 +1,4 @@
-import { renderRepeatToCalendarView, renderTodoListBox } from "../dashboard.js";
+import { renderRepeatToCalendarView, renderTodoListBox } from "../evnt/dashboard.js";
 import * as util from "../utils.js"
 import { saveTodoList, loadTodoList } from "./localStorage.js";
 
