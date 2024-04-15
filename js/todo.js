@@ -1,5 +1,5 @@
 import { renderCalendarView } from "./dashboard.js";
-import { days } from "./date_utils.js";
+import { days } from "./utils.js";
 
 let dateNow = new Date();
 const todayYear = dateNow.getFullYear();

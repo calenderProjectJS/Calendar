@@ -1,5 +1,5 @@
-import { renderRepeatToCalendarView, renderTodoListBox } from "./dashboard.js";
-import * as util from "./date_utils.js"
+import { renderRepeatToCalendarView, renderTodoListBox } from "../dashboard.js";
+import * as util from "../utils.js"
 import { saveTodoList, loadTodoList } from "./localStorage.js";
 
 let dateNow = new Date();

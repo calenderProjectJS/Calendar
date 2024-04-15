@@ -1,5 +1,5 @@
 import { loadTodoList } from "./localStorage.js";
-import { addTodoToList } from "./todo.js";
+import { addTodoToList } from "../todo.js";
 
 const select = () => {
 	let todoList = loadTodoList();

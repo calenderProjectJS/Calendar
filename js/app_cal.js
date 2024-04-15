@@ -4,7 +4,7 @@ import {
 	setReccurrenceOption,
 	renderRepeatToCalendarView,
 } from "./calendar_todo.js";
-import { saveTodoList, loadTodoList } from "./localStorage.js";
+import { saveTodoList, loadTodoList } from "./data/localStorage.js";
 
 // 현재 기준 날짜 및 시간
 let dateNow = new Date();

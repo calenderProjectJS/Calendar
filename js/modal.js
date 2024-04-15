@@ -1,4 +1,4 @@
-import { insert } from "./insert.js";
+import { insert } from "./data/insert.js";
 import { renderCalendarView, todayYear, todayMonth, goToMonth } from "./dashboard.js";
 import { getSelectedDate, setReccurrenceOption } from "./calendar_todo.js";
 

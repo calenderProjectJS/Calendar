@@ -1,6 +1,6 @@
 
-import { loadTodoList } from "./localStorage.js";
-import { days } from "./date_utils.js";
+import { loadTodoList } from "./data/localStorage.js";
+import { days } from "./utils.js";
 
 // 현재 기준 날짜 및 시간
 let dateNow = new Date();
