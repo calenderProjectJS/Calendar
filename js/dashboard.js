@@ -1,4 +1,4 @@
-import { days } from "./utils.js";
+import { days, titleMonth } from "./utils.js";
 import { loadTodoList } from "./data/localStorage.js";
 
 let dateNow = new Date();
@@ -317,14 +317,17 @@ const dashboardEvent = () => {
 	document.querySelector('.go-prev').parentElement.addEventListener('click', (e) => {
 		goToMonth(-1, e.target.closest(".monthly"));
 		renderRepeatToCalendarView(toDoList);
+		titleMonth();
 	});
 	document.querySelector('.go-next').parentElement.addEventListener('click', (e) => {
 		goToMonth(1, e.target.closest(".monthly"));
 		renderRepeatToCalendarView(toDoList);
+		titleMonth();
 	});
 	document.querySelector('.go-today')?.parentElement.addEventListener('click', (e) => {
 		renderCalendarView(todayYear, todayMonth, e.target.closest(".monthly"));
 		renderRepeatToCalendarView(toDoList);
+		titleMonth();
 	});	
 	document.querySelector(".weekly .date-container")?.addEventListener("click", (e) => {
 		renderTodoListBox(e.target.closest(".date-box"));

@@ -6,12 +6,16 @@ import { loadTodoList, saveTodoList } from "./data/localStorage.js";
 import { toDoList } from "./data/data.js";
 import { todoEvent } from "./todo.js";
 import select from "./data/data_controller.js";
+import { titleMonth } from "./utils.js";
+
 if (loadTodoList().length === 0) {
 	saveTodoList(toDoList);
 }
 
 modalEvent();
 getheaderToday();
+titleMonth();
+
 const root = window.location.hostname === "127.0.0.1" ? "" : "/Calendar";
 if (window.location.pathname === root + "/" || window.location.pathname === root + "/index.html") dashboardEvent();
 if (window.location.pathname === root + "/html/calendar.html") calenderEvent();
