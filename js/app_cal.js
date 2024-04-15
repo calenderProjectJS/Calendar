@@ -5,7 +5,7 @@ import {
 	renderRepeatToCalendarView,
 } from "./calendar_todo.js";
 import { saveTodoList, loadTodoList } from "./localStorage.js";
-
+import { titleMonth } from "./date_utils.js";
 // 현재 기준 날짜 및 시간
 let dateNow = new Date();
 
@@ -27,17 +27,20 @@ const calenderEvent = () => {
 	document.querySelector(".go-prev")?.parentElement.addEventListener("click", e => {
 		goToMonth(-1, e.target.closest('#main-content section.calendar')); // 방향을 -1로 설정하여 이전 달로 이동
 		renderRepeatToCalendarView(todoList);
+		titleMonth();
 	});
 
 	// 다음 달 버튼 클릭 이벤트 핸들러
 	document.querySelector(".go-next")?.parentElement.addEventListener("click", e => {
 		goToMonth(1, e.target.closest('#main-content section.calendar')); // 방향을 1로 설정하여 다음 달로 이동
 		renderRepeatToCalendarView(todoList);
+		titleMonth();
 	});
 	// 오늘 버튼 클릭 이벤트 핸들러
 	document.querySelector(".go-today")?.parentElement.addEventListener("click", e => {
 		renderCalendarView(todayYear, todayMonth, e.target.closest('.calendar'));
 		renderRepeatToCalendarView(todoList);
+		titleMonth();
 	});
 
 	// 선택한 날짜에 따라 weekly 구현하는 함수
