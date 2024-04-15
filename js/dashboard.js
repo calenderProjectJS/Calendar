@@ -49,6 +49,7 @@ const renderTodoListTitle = (target, $today) => {
 	const $title = target.closest("#main-content").querySelectorAll(".todo-list .title span");
 	$title[0].textContent = "오늘";
 	$title[1].textContent = "내일";
+	target = target.querySelector(".today-circle") ? target.querySelector(".today-circle") : target;
 	if (!target.matches(".today-circle")) {
 		const twoDates = getTwoDatesInMonthly($today);
 		const span = getDateInfoFromSpan(twoDates[0].querySelector("span"));
@@ -60,7 +61,6 @@ const renderTodoListTitle = (target, $today) => {
 
 const renderTodoListBox = (target) => {
 	let toDoList = loadTodoList();
-	console.log(target);
 	const $mainContent = target.closest("#main-content");
 	const $todayList = $mainContent.querySelector(".todo-list .today .list");
 	const $tomorrowList = $mainContent.querySelector(".todo-list .tomorrow .list");
@@ -308,7 +308,7 @@ const dashboardEvent = () => {
 	renderCalendarView(todayYear, todayMonth, document.querySelector(".container-1 .calendar"));
 	renderWeeklyView();
 	renderRepeatToCalendarView(toDoList);
-	renderTodoListBox(document.querySelector(".weekly .date-container .date-box .today-circle"));	
+	renderTodoListBox(document.querySelector(`.weekly .date-container [data-date-idx="${todayDate}"]`));
 	//renderRepeatToCalendarView(toDoList);
 	document.querySelector('.date-container').addEventListener('click', e => {
 		renderWeeklyView(e);
