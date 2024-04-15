@@ -30,9 +30,7 @@ const getDateInfoFromSpan = ($span) => {
 // 2-1. 달력에서 날짜 클릭하면 버튼 텍스트 날짜로 변경하는 함수
 const getSelectedDate = (e) => {
   // e.target이 span이면 그대로, span 상위요소면 qS로 span 선택
-  const $selectedDateSpan =
-    (e.target.matches(".date-text") && e.target) ||
-    e.target.querySelector(".date-text");
+  const $selectedDateSpan = e.target.closest(".date-box").querySelector(".date-text");
 
   const {year, month, date, day} = getDateInfoFromSpan($selectedDateSpan);
 
@@ -99,7 +97,7 @@ const filterViewTimeArray = (viewTimeArr, todo) => {
   const month = (todo.time.month > 1) ? todo.time.month - 1 : 0;
   const todoTime = new Date(todo.time.year, month, todo.time.date, 0, 0, 0, 0);
 
-  return viewTimeArr.filter(({ dateObj: viewTime }, dateBoxId) => {
+  return viewTimeArr.filter(({ dateObj: viewTime, dateBoxId } ) => {
     let option = todo.repeat;
     // 매일 반복은 todoTime 이상의 viewTime만 필터링
     if (option === 1) return viewTime.getTime() >= todoTime.getTime();
@@ -140,4 +138,4 @@ const renderTodoItems = (filteredViewTimeArr, dateBoxArr, todo) => {
 
 
 
-export { getSelectedDate, setReccurrenceOption, renderRepeatToCalendarView };
+export { getSelectedDate, setReccurrenceOption, renderRepeatToCalendarView, generateViewTimeArray, filterViewTimeArray, getDateInfoFromSpan };
