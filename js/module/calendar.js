@@ -135,28 +135,25 @@ const goToMonth = (direction, parent) => {
 };
 
 const renderWeeklyView = (e) => {
-  // 선택한 요소(달력)에서 태그를 가져와 weekly의 date-container에 추가
-  const $selectedDateBox = e
-    ? e.target
-    : document.querySelector(".today-circle").parentElement;
-  const $selectedCalendar = $selectedDateBox.closest(".date-container");
+	const $selectedDateBox = e ? e.target.closest(".date-box") : document.querySelector(".today-circle").parentElement;
+	const $selectedCalendar = $selectedDateBox.closest('.date-container');
 
-  const selectedDateIdx = $selectedDateBox.dataset.dateIdx;
-  const selectedDay = selectedDateIdx % 7;
+	const selectedDateIdx = $selectedDateBox.dataset.dateIdx;
+	const selectedDay = selectedDateIdx % 7;
 
-  const startDateIdx = selectedDateIdx - selectedDay;
+	const startDateIdx = selectedDateIdx - selectedDay;
 
-  const tagDatesWeek = [];
+	const tagDatesWeek = [];
 
-  for (let i = startDateIdx; i < 7 + startDateIdx; i++) {
-    tagDatesWeek.push($selectedCalendar.children[i].outerHTML);
-  }
+	for (let i = startDateIdx; i < 7 + startDateIdx; i++) {
+		tagDatesWeek.push($selectedCalendar.children[i].outerHTML);
+	}
 
-  const $weekly = document.querySelector(".weekly");
-  if ($weekly) {
-    const $weeklyDateContainer = $weekly.querySelector(".date-container");
-    $weeklyDateContainer.innerHTML = tagDatesWeek.join("");
-  }
+	const $weekly = document.querySelector('.weekly');
+	if ($weekly) {
+		const $weeklyDateContainer = $weekly.querySelector('.date-container');
+		$weeklyDateContainer.innerHTML = tagDatesWeek.join("");
+	}
 };
 
 export { goToMonth, renderWeeklyView, renderCalendarView };

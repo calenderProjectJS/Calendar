@@ -1,7 +1,11 @@
 const days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 const date = new Date();
-const year = date.getFullYear();
-const month = date.getMonth() + 1;
+const today = {
+	year: date.getFullYear(),
+	month: date.getMonth(),
+	date: date.getDate(),
+	day: date.getDay(),
+}
 
 const getDateInfoFromText = (input) => {
 	const time = input.split(".");
@@ -16,18 +20,22 @@ const getDateInfoFromText = (input) => {
 const titleMonth = () => {
 	const $title = document.querySelector("head title");
 	let $yearMonth = document.querySelector("#main-content .header-calendar .year-month");
-	$yearMonth = $yearMonth ? $yearMonth.textContent : `${year}년 ${month}월`;
+	$yearMonth = $yearMonth ? $yearMonth.textContent : `${today.year}년 ${today.month + 1}월`;
 	$title.textContent = `Calendar | ${$yearMonth}`;
 }
 
 const getheaderToday = () => {
 	const $today = document.querySelector(".wrapper .selected-date");
-
-	const dateNow = new Date();
-	const todayYear = dateNow.getFullYear();
-	const todayMonth = dateNow.getMonth();
-	const todayDate = dateNow.getDate();
-	$today.textContent = `${todayYear}년 ${todayMonth + 1}월 ${todayDate}일`;
+	$today.textContent = `${today.year}년 ${today.month + 1}월 ${today.date}일`;
 }
 
-export { getDateInfoFromText, days, titleMonth, getheaderToday };
+const colors = () => {
+	let r = Math.floor((Math.random() * (256 - 170)) + 170);
+	let g = Math.floor((Math.random() * (256 - 170)) + 170);
+	let b = Math.floor((Math.random() * (256 - 170)) + 170);
+	while (Math.abs(r - g) < 10) g = Math.floor((Math.random() * (256 - 170)) + 170);
+	while (Math.abs(g - b) < 10) b = Math.floor((Math.random() * (256 - 170)) + 170);
+	return `rgb(${r}, ${g}, ${b})`;
+}
+
+export { getDateInfoFromText, days, titleMonth, getheaderToday, today, colors };

@@ -4,7 +4,7 @@ import { dashboardEvent } from "./evnt/dashboard.js";
 import { loadTodoList, saveTodoList } from "./data/localStorage.js";
 import { toDoList } from "./data/data.js";
 import { todoEvent } from "./evnt/todo.js";
-import select from "./data/controller.js";
+import { select } from "./data/controller.js";
 import { titleMonth, getheaderToday } from "./utils.js";
 
 if (loadTodoList().length === 0) {
