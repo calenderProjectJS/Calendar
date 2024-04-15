@@ -6,6 +6,7 @@ import { toDoList } from "./data/data.js";
 import { todoEvent } from "./evnt/todo.js";
 import { select } from "./data/controller.js";
 import { titleMonth, getheaderToday } from "./utils.js";
+import xhr from "./module/anniversary.js";
 
 if (loadTodoList().length === 0) {
 	saveTodoList(toDoList);
