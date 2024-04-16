@@ -5,7 +5,7 @@ import { renderRepeatToCalendarView } from "../module/calendar_todo.js";
 import { renderTodoListBox } from "../module/dashboard_render.js";
 
 const dashboardEvent = () => {
-	let toDoList = loadTodoList();
+	const toDoList = loadTodoList();
 	renderCalendarView(today.year, today.month, document.querySelector(".container-1 .calendar"));
 	renderWeeklyView();
 	renderRepeatToCalendarView(toDoList);

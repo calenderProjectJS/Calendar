@@ -5,14 +5,14 @@ import { renderTodoListBox } from "../evnt/dashboard.js";
 import * as u from "../utils.js";
 
 const select = () => {
-	let todoList = loadTodoList();
+	const todoList = loadTodoList();
 	todoList.forEach(element => {
 		addTodoToList(element);
 	});
 }
 
 const insert = (obj) => {
-	let todoList = loadTodoList();
+	const todoList = loadTodoList();
 	const time = obj.time !== "기한 없음" ? u.getDateInfoFromText(obj.time) : {
 		year: u.today.year,
 		month: u.today.month,
