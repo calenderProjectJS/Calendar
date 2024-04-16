@@ -1,6 +1,8 @@
-import { insert } from "./insert.js";
-import { renderCalendarView, todayYear, todayMonth, goToMonth } from "./dashboard.js";
-import { getSelectedDate, setReccurrenceOption } from "./calendar_todo.js";
+import { insert } from "../data/controller.js";
+import { getSelectedDate, setReccurrenceOption } from "../module/calendar_todo.js";
+import { goToMonth } from "../module/calendar.js";
+import { renderCalendarView } from "../module/calendar.js";
+import { today } from "../utils.js";
 
 const modalEvent = () => {
 	/* modal event */
@@ -9,7 +11,7 @@ const modalEvent = () => {
 	const $modalContent = document.querySelector(".modal-content");
 	const closeModalButton = $modalContent.querySelector('.modal-close');
 
-	renderCalendarView(todayYear, todayMonth, document.querySelector(".dropdown .content-calendar"));
+	renderCalendarView(today.year, today.month, document.querySelector(".dropdown .content-calendar"));
 	openModalButton.addEventListener('click', () => {
 		$modalOverlay.classList.remove('hidden');
 		$textArea.value = "";
@@ -66,9 +68,7 @@ const modalEvent = () => {
 	let repeatOpt = 0;
 	$contentRepeat.addEventListener("click", (e) => {
 		// e.target 드롭다운 반복 옵션 반환 (0, 1, 2, 3)
-		console.log('드롭다운 반복 선택');
 		repeatOpt = Number(setReccurrenceOption(e.target));
-		console.log(repeatOpt);
 	});
 
 	/* save button */

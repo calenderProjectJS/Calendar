@@ -1,11 +1,5 @@
 import { renderCalendarView } from "./dashboard.js";
-import { days } from "./date_utils.js";
-
-let dateNow = new Date();
-const todayYear = dateNow.getFullYear();
-const todayMonth = dateNow.getMonth();
-const todayDate = dateNow.getDate();
-const todayDay = dateNow.getDay();
+import { days, today } from "../utils.js";
 
 const $modalOverlay = document.querySelector('.modal-overlay');
 //========================체크 여부에 따라 수정, 삭제 이벤트======================
@@ -140,7 +134,7 @@ const todoEvent = () => {
 		const inputText = inputField.value; // <input> 요소의 내용 복사
 		const textarea = document.querySelector(".txt-field");
 		textarea.value = inputText; // <textarea> 요소에 붙여넣기
-		renderCalendarView(todayYear, todayMonth, document.querySelector(".dropdown .content-calendar"));
+		renderCalendarView(today.year, today.month, document.querySelector(".dropdown .content-calendar"));
 	});
 
 	// Enter 키 입력할 때도 동일한 효과
@@ -163,7 +157,7 @@ const todoEvent = () => {
 		const inputText = $form.querySelector(".txt-field").value;
 		const checkedCheckbox = document.querySelector(".inputEl:checked");
 		let date = $form.querySelector(".time-btn").textContent;
-		date = date === "기한 없음" ? `${todayYear}. ${todayMonth + 1}. ${todayDate}. ${days[todayDay]}` : date;
+		date = date === "기한 없음" ? `${today.year}. ${today.month + 1}. ${today.date}. ${days[today.day]}` : date;
 		if (checkedCheckbox) {
 			// 체크된 체크박스가 있는 경우에만 실행
 			const todoTextElement = checkedCheckbox
