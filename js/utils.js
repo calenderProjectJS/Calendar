@@ -17,6 +17,14 @@ const getDateInfoFromText = (input) => {
 	}
 }
 
+const getDateInfoFromText2 = (input) => {
+	return {
+		year: Number(input.slice(0, 4)),
+		month: Number(input.slice(4, 6)),
+		date: Number(input.slice(6, 8)),
+	};
+}
+
 const titleMonth = () => {
 	const $title = document.querySelector("head title");
 	let $yearMonth = document.querySelector("#main-content .header-calendar .year-month");
@@ -38,4 +46,4 @@ const colors = () => {
 	return `rgb(${r}, ${g}, ${b})`;
 }
 
-export { getDateInfoFromText, days, titleMonth, getheaderToday, today, colors };
+export { getDateInfoFromText, days, titleMonth, getheaderToday, today, colors, getDateInfoFromText2 };
