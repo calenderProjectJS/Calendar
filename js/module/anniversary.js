@@ -57,10 +57,11 @@ const request = (callback, key, year, month) => {
 }
 
 const initHolidayData = () => {
-	for (let year = 2020; year < 2031; year++) {
+	for (let year = 2020; year < 2025; year++) {
 		for (let month = 0; month < 12; month++) {
 			request((xmlDoc) => {
 				const $items = xmlDoc.querySelectorAll("body item");
+				const dates = loadHolidayList();
 				for (const iter of [...$items]) {
 					dates.push({
 						name: iter.getElementsByTagName("dateName")[0].textContent,
