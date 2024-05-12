@@ -10,7 +10,7 @@ import { getDateInfoFromText, getDateInfoFromText2 } from "../utils.js";
 const xhr = new XMLHttpRequest();
 const key = 'jnBzwmpZT2R23RcIULm5xeKznct7Zm4TJKgGluZ2AwLSTnBDypkC57KykTZ599myibI9pU%2FUf2UQ%2FIv1Ke2cYA%3D%3D';
 
-const url = 'http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService'; /*URL*/
+const url = 'https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService'; /*URL*/
 const get = {
 	anniversary: "/getAnniversaryInfo",
 	restDel: "/getRestDeInfo",
