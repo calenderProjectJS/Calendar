@@ -1,11 +1,6 @@
 import { renderCalendarView } from "./dashboard.js";
-import { days } from "./date_utils.js";
-
-let dateNow = new Date();
-const todayYear = dateNow.getFullYear();
-const todayMonth = dateNow.getMonth();
-const todayDate = dateNow.getDate();
-const todayDay = dateNow.getDay();
+import { days, today, getDateInfoFromText, repeats } from "../utils.js";
+import { remove, select, update } from "../data/controller.js";
 
 const $modalOverlay = document.querySelector('.modal-overlay');
 //========================체크 여부에 따라 수정, 삭제 이벤트======================
@@ -89,8 +84,9 @@ function handleDeleteButtonClick(event) {
 	// 각 체크된 요소에 대해 부모 li 요소를 찾아 삭제
 	$checkboxes.forEach(function (checkbox) {
 		if (userConfirm) {
-			const listItem = checkbox.closest(".todoLi");
-			listItem.parentNode.removeChild(listItem);
+			const $listItem = checkbox.closest(".todoLi");
+			$listItem.parentNode.removeChild($listItem);
+			remove(Number($listItem.id.split("-")[1]));
 		}
 		// 모든 할 일 목록을 삭제했는지 확인하고, none 추가.
 		//******************************이거 왜 안댐?********************/
@@ -123,9 +119,8 @@ const todoEvent = () => {
 
 	//===================할 일을 추가하세요 (모달로 이동)====================
 	const submitBtn = document.querySelector(".submit_btn");
-	const inputField = document.querySelector("input[type='text']"); // 입력칸
+	const inputField = document.querySelector("input[type='text']");
 	submitBtn.addEventListener("click", (event) => {
-		// document.getElementById("checkbox").checked = false;
 		const checkedCheckbox = [...document.querySelectorAll(".inputEl:checked")];
 		checkedCheckbox.forEach((checkbox) => {
 			checkbox.checked = false;
@@ -134,13 +129,12 @@ const todoEvent = () => {
 		$fixBtns.forEach(($fixBtn) => {
 			$fixBtn.classList.add("color");
 		});
-
 		event.preventDefault(); // 기본 동작 방지
 		$modalOverlay.classList.remove("hidden"); // 모달 띄우기
 		const inputText = inputField.value; // <input> 요소의 내용 복사
 		const textarea = document.querySelector(".txt-field");
 		textarea.value = inputText; // <textarea> 요소에 붙여넣기
-		renderCalendarView(todayYear, todayMonth, document.querySelector(".dropdown .content-calendar"));
+		renderCalendarView(today.year, today.month, document.querySelector(".dropdown .content-calendar"));
 	});
 
 	// Enter 키 입력할 때도 동일한 효과
@@ -163,19 +157,14 @@ const todoEvent = () => {
 		const inputText = $form.querySelector(".txt-field").value;
 		const checkedCheckbox = document.querySelector(".inputEl:checked");
 		let date = $form.querySelector(".time-btn").textContent;
-		date = date === "기한 없음" ? `${todayYear}. ${todayMonth + 1}. ${todayDate}. ${days[todayDay]}` : date;
+		date = date === "기한 없음" ? `${today.year}. ${today.month + 1}. ${today.date}. ${days[today.day]}` : date;
 		if (checkedCheckbox) {
-			// 체크된 체크박스가 있는 경우에만 실행
-			const todoTextElement = checkedCheckbox
-				.closest(".todoLi")
-				.querySelector(".todo_text");
-			todoTextElement.textContent = inputText; // 텍스트 업데이트
-
-			// 모달 닫기
+			const repeat = $form.querySelector(".repeat-btn").textContent;
+			update(Number(checkedCheckbox.closest(".todoLi").id.split("-")[1]), { txt: inputText, time: getDateInfoFromText(date), repeat: repeats.indexOf(repeat) });
+			document.querySelector("#List").innerHTML = "";
+			select();
 
 			$modalOverlay.classList.add("hidden");
-
-			// 입력란의 내용을 지우기
 			clearInputField();
 		} else {
 			// 체크된 체크박스가 없는 경우는 새로운 할 일 항목을 추가
@@ -188,7 +177,7 @@ const todoEvent = () => {
 
 	function clearInputField() {
 		const inputField = document.querySelector("input[type='text']");
-		inputField.value = ""; // 입력란 내용 지우기
+		inputField.value = "";
 	}
 	// =============모달에서 저장버튼 클릭시============
 	saveButton.addEventListener("click", function (event) {
@@ -236,6 +225,7 @@ function addTodoToList(obj) {
 	const time = obj.date ? obj.date : `${obj.time.year}. ${obj.time.month}. ${obj.time.date} ${days[obj.time.day]}`;
 	const newTodoItem = document.createElement("li");
 	newTodoItem.classList.add("todoLi");
+	newTodoItem.id = `todo-${obj.id}`;
 	newTodoItem.innerHTML = `
 			<label class="checkbox">
 				<div class="input_checkbox">
