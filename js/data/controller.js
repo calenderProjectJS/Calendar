@@ -34,4 +34,20 @@ const insert = (obj) => {
 	}
 }
 
-export {select, insert};
+const remove = (id) => {
+	let todoList = loadTodoList();
+	const idx = todoList.findIndex((list) => list.id === id);
+	todoList.splice(idx, 1);
+	saveTodoList(todoList);
+}
+
+const update = (id, obj)	=> {
+	let todoList = loadTodoList();
+	const idx = todoList.findIndex((list) => list.id === id);
+	todoList[idx].title = obj.txt;
+	todoList[idx].time = obj.time;
+	todoList[idx].repeat = obj.repeat;
+	saveTodoList(todoList);
+}
+
+export {select, insert, remove, update};

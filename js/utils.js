@@ -1,4 +1,5 @@
 const days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+const repeats = ["반복 안함", "매일", "매주", "매달"];
 const date = new Date();
 const today = {
 	year: date.getFullYear(),
@@ -46,4 +47,4 @@ const colors = () => {
 	return `rgb(${r}, ${g}, ${b})`;
 }
 
-export { getDateInfoFromText, days, titleMonth, getheaderToday, today, colors, getDateInfoFromText2 };
+export { getDateInfoFromText, days, titleMonth, getheaderToday, today, colors, repeats, getDateInfoFromText2 };

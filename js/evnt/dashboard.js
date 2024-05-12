@@ -5,11 +5,11 @@ import { renderRepeatToCalendarView } from "../module/calendar_todo.js";
 import { renderTodoListBox } from "../module/dashboard_render.js";
 
 const dashboardEvent = () => {
-	const toDoList = loadTodoList();
+	let toDoList = loadTodoList();
 	renderCalendarView(today.year, today.month, document.querySelector(".container-1 .calendar"));
 	renderWeeklyView();
 	renderRepeatToCalendarView(toDoList);
-	renderTodoListBox(document.querySelector(`.weekly .date-container [data-date-idx="${today.date}"]`));
+	renderTodoListBox(document.querySelector(`.weekly .date-container .today-circle`));
 	//renderRepeatToCalendarView(toDoList);
 	document.querySelector('.date-container').addEventListener('click', e => {
 		renderWeeklyView(e);

@@ -84,7 +84,9 @@ const modalEvent = () => {
 
 	$saveBtn.addEventListener("click", (e) => {
 		e.preventDefault();
-		if ($saveBtn.classList.contains("on")) {
+		const checkedCheckbox = document.querySelector(".inputEl:checked");
+		if ($saveBtn.classList.contains("on") && !checkedCheckbox) {
+			console.log(checkedCheckbox)
 			insert({
 				title: $textArea.value,
 				time: $selectTime.firstElementChild.textContent,
