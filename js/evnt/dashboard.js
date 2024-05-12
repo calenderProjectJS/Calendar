@@ -9,7 +9,7 @@ const dashboardEvent = () => {
 	renderCalendarView(today.year, today.month, document.querySelector(".container-1 .calendar"));
 	renderWeeklyView();
 	renderRepeatToCalendarView(toDoList);
-	renderTodoListBox(document.querySelector(`.weekly .date-container [data-date-idx="${today.date}"]`));
+	renderTodoListBox(document.querySelector(`.weekly .date-container .today-circle`));
 	//renderRepeatToCalendarView(toDoList);
 	document.querySelector('.date-container').addEventListener('click', e => {
 		renderWeeklyView(e);
