@@ -53,7 +53,7 @@ const renderTodoListTitle = (target, $today) => {
 }
 
 const renderTodoListBox = (target) => {
-	let toDoList = loadTodoList();
+	const toDoList = loadTodoList();
 	const $mainContent = target.closest("#main-content");
 	const $todayList = $mainContent.querySelector(".todo-list .today .list");
 	const $tomorrowList = $mainContent.querySelector(".todo-list .tomorrow .list");

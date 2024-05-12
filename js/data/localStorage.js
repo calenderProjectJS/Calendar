@@ -4,14 +4,23 @@ function saveTodoList(todoList) {
   localStorage.setItem('todoList', JSON.stringify(todoList));
 }
 
+function saveHolidayList(dateList) {
+	localStorage.setItem("dateList", JSON.stringify(dateList));
+}
+
 // 로컬 스토리지에서 데이터를 불러오는 함수
 function loadTodoList() {
   const todoListJSON = localStorage.getItem('todoList');
   return todoListJSON ? JSON.parse(todoListJSON) : [];
 }
 
+function loadHolidayList(dateList) {
+	const dateListJSON = localStorage.getItem('dateList');
+  return dateListJSON ? JSON.parse(dateListJSON) : [];
+}
 
-export { saveTodoList, loadTodoList };
+
+export { saveTodoList, loadTodoList, saveHolidayList, loadHolidayList };
 
 
 

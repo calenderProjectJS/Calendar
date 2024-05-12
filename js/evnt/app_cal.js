@@ -17,7 +17,7 @@ const todayDate = dateNow.getDate();
 //===== 함수 실행 영역 =====//
 const calenderEvent = () => {
 
-	let todoList = loadTodoList();
+	const todoList = loadTodoList();
 	// 초기화면: 오늘 기준 calendar 렌더
 	renderCalendarView(todayYear, todayMonth, document.querySelector('#main-content .calendar'));
 	// 초기화면: 이벤트 없이 weekly 렌더
